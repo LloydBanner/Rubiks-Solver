@@ -27,6 +27,9 @@
     <ClInclude Include="RubiksCube.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Scrambler.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -36,6 +39,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="RubiksCube.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Scrambler.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
