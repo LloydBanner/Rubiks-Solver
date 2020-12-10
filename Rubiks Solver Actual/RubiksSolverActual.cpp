@@ -14,42 +14,42 @@ int main() {
 	Scrambler scrambler;
 	for (int i = 0; i < 3; i++) {
 		for (int j = 0; j < 3; j++) {
-			std::cout << cube.getFrontPos(i, j), "\n";
+			std::cout << cube.front.getPos(i, j), "\n";
 		}
 		std::cout << "\n";
 	}
 	std::cout << "\n";
 	for (int i = 0; i < 3; i++) {
 		for (int j = 0; j < 3; j++) {
-			std::cout << cube.getBackPos(i, j), "\n";
+			std::cout << cube.back.getPos(i, j), "\n";
 		}
 		std::cout << "\n";
 	}
 	std::cout << "\n";
 	for (int i = 0; i < 3; i++) {
 		for (int j = 0; j < 3; j++) {
-			std::cout << cube.getLeftSidePos(i, j), "\n";
+			std::cout << cube.leftSide.getPos(i, j), "\n";
 		}
 		std::cout << "\n";
 	}
 	std::cout << "\n";
 	for (int i = 0; i < 3; i++) {
 		for (int j = 0; j < 3; j++) {
-			std::cout << cube.getRightSidePos(i, j), "\n";
+			std::cout << cube.rightSide.getPos(i, j), "\n";
 		}
 		std::cout << "\n";
 	}
 	std::cout << "\n";
 	for (int i = 0; i < 3; i++) {
 		for (int j = 0; j < 3; j++) {
-			std::cout << cube.getTopPos(i, j), "\n";
+			std::cout << cube.top.getPos(i, j), "\n";
 		}
 		std::cout << "\n";
 	}
 	std::cout << "\n";
 	for (int i = 0; i < 3; i++) {
 		for (int j = 0; j < 3; j++) {
-			std::cout << cube.getBottomPos(i, j), "\n";
+			std::cout << cube.bottom.getPos(i, j), "\n";
 		}
 		std::cout << "\n";
 	}
@@ -61,6 +61,7 @@ int main() {
 	cube.doFPrime(1);
 	cube.doB(1);
 	cube.doU(1);
+	//cube.faces[0].setPos(1,1,'T');
 	cube.rotateCubeRight(1);
 	std::string sequence = scrambler.getSequence();
 	std::cout << sequence; 
@@ -69,42 +70,42 @@ int main() {
 
 	for (int i = 0; i < 3; i++) {
 		for (int j = 0; j < 3; j++) {
-			std::cout << cube.getFrontPos(i, j);
+			std::cout << cube.front.getPos(i, j);
 		}
 		std::cout << "\n";
 	}
 	std::cout << "\n";
 	for (int i = 0; i < 3; i++) {
 		for (int j = 0; j < 3; j++) {
-			std::cout << cube.getBackPos(i, j), "\n";
+			std::cout << cube.back.getPos(i, j), "\n";
 		}
 		std::cout << "\n";
 	}
 	std::cout << "\n";
 	for (int i = 0; i < 3; i++) {
 		for (int j = 0; j < 3; j++) {
-			std::cout << cube.getLeftSidePos(i, j), "\n";
+			std::cout << cube.leftSide.getPos(i, j), "\n";
 		}
 		std::cout << "\n";
 	}
 	std::cout << "\n";
 	for (int i = 0; i < 3; i++) {
 		for (int j = 0; j < 3; j++) {
-			std::cout << cube.getRightSidePos(i, j), "\n";
+			std::cout << cube.rightSide.getPos(i, j), "\n";
 		}
 		std::cout << "\n";
 	}
 	std::cout << "\n";
 	for (int i = 0; i < 3; i++) {
 		for (int j = 0; j < 3; j++) {
-			std::cout << cube.getTopPos(i, j), "\n";
+			std::cout << cube.top.getPos(i, j), "\n";
 		}
 		std::cout << "\n";
 	}
 	std::cout << "\n";
 	for (int i = 0; i < 3; i++) {
 		for (int j = 0; j < 3; j++) {
-			std::cout << cube.getBottomPos(i, j), "\n";
+			std::cout << cube.bottom.getPos(i, j), "\n";
 		}
 		std::cout << "\n";
 	}

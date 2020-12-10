@@ -2,14 +2,8 @@
 #include "Scrambler.h"
 
 
-Scrambler::Scrambler()
-{
+Scrambler::Scrambler(){
 }
-
-void Scrambler::setCube(RubiksCube cube) {
-	cubeToScramble = cube;
-}
-
 
 void Scrambler::scramble(int num) {
 	sequence = "";
@@ -69,6 +63,10 @@ void Scrambler::scramble(int num) {
 	}
 }
 
+void Scrambler::setCube(RubiksCube cube) {
+	cubeToScramble = cube;
+}
+
 RubiksCube Scrambler::getCube() {
 	return cubeToScramble;
 }
@@ -77,6 +75,5 @@ std::string Scrambler::getSequence() {
 	return sequence;
 }
 
-Scrambler::~Scrambler()
-{
+Scrambler::~Scrambler(){
 }

@@ -1,18 +1,17 @@
 #pragma once
+
 #include <string>;
-#include <ctime>
 #include "RubiksCube.h"
 
-class Scrambler{
+class BeginnersMethodSolver{
 public:
-	RubiksCube cubeToScramble;
+	RubiksCube cubeToSolve;
 	std::string sequence;
 
-	Scrambler();
+	BeginnersMethodSolver();
+	void SolveCross(char colour);
 	void setCube(RubiksCube cube);
-	void scramble(int num);
 	RubiksCube getCube();
-	std::string getSequence();
-	~Scrambler();
+	~BeginnersMethodSolver();
 };
 
