@@ -4,13 +4,13 @@ class RubiksCube {
 public:
 	int width = 3;
 	int height = 3;
-	Face front;
-	Face back;
-	Face leftSide;
-	Face rightSide;
-	Face top;
-	Face bottom;
-	Face temp;
+	Face front = Face("front");
+	Face back = Face("back");
+	Face leftSide = Face("leftSide");
+	Face rightSide = Face("rightSide");
+	Face top = Face("top");
+	Face bottom = Face("bottom");
+	Face temp = Face("temp");
 	Face faces[7] = { front, back, leftSide, rightSide, top, bottom, temp };
 
 	RubiksCube();

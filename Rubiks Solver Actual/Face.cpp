@@ -2,7 +2,8 @@
 #include "Face.h"
 
 
-Face::Face(){
+Face::Face(std::string newSide){
+	side = newSide;
 }
 
 char* Face::getFace() {

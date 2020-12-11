@@ -2,6 +2,7 @@
 
 #include <string>;
 #include "RubiksCube.h"
+#include "Face.h"
 
 class BeginnersMethodSolver{
 public:

@@ -14,6 +14,8 @@ RubiksCube::RubiksCube() {
 			temp.setPos(i, j, 'X');
 		}
 	}
+	//front.setPos(0, 1, 'W');
+	//top.setPos(2, 1, 'O');
 }
 
 RubiksCube::~RubiksCube() {

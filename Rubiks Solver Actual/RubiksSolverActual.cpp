@@ -6,68 +6,9 @@
 
 #include "RubiksCube.h"
 #include "Scrambler.h"
+#include "BeginnersMethodSolver.h"
 
-
-int main() {
-	std::cout << "Hello World! \n";
-	RubiksCube cube; 
-	Scrambler scrambler;
-	for (int i = 0; i < 3; i++) {
-		for (int j = 0; j < 3; j++) {
-			std::cout << cube.front.getPos(i, j), "\n";
-		}
-		std::cout << "\n";
-	}
-	std::cout << "\n";
-	for (int i = 0; i < 3; i++) {
-		for (int j = 0; j < 3; j++) {
-			std::cout << cube.back.getPos(i, j), "\n";
-		}
-		std::cout << "\n";
-	}
-	std::cout << "\n";
-	for (int i = 0; i < 3; i++) {
-		for (int j = 0; j < 3; j++) {
-			std::cout << cube.leftSide.getPos(i, j), "\n";
-		}
-		std::cout << "\n";
-	}
-	std::cout << "\n";
-	for (int i = 0; i < 3; i++) {
-		for (int j = 0; j < 3; j++) {
-			std::cout << cube.rightSide.getPos(i, j), "\n";
-		}
-		std::cout << "\n";
-	}
-	std::cout << "\n";
-	for (int i = 0; i < 3; i++) {
-		for (int j = 0; j < 3; j++) {
-			std::cout << cube.top.getPos(i, j), "\n";
-		}
-		std::cout << "\n";
-	}
-	std::cout << "\n";
-	for (int i = 0; i < 3; i++) {
-		for (int j = 0; j < 3; j++) {
-			std::cout << cube.bottom.getPos(i, j), "\n";
-		}
-		std::cout << "\n";
-	}
-
-	std::cout << "\n";
-	scrambler.setCube(cube);
-	//scrambler.scramble(3);
-	cube = scrambler.getCube();
-	cube.doFPrime(1);
-	cube.doB(1);
-	cube.doU(1);
-	//cube.faces[0].setPos(1,1,'T');
-	cube.rotateCubeRight(1);
-	std::string sequence = scrambler.getSequence();
-	std::cout << sequence; 
-	std::cout << "\n";
-	std::cout << "\n";
-
+void printCube(RubiksCube cube) {
 	for (int i = 0; i < 3; i++) {
 		for (int j = 0; j < 3; j++) {
 			std::cout << cube.front.getPos(i, j);
@@ -110,6 +51,40 @@ int main() {
 		std::cout << "\n";
 	}
 	std::cout << "\n";
+}
+
+int main() {
+	std::cout << "Hello World! \n";
+	RubiksCube cube; 
+	Scrambler scrambler;
+
+	std::cout << "initial cube" << "\n";
+	printCube(cube);
+
+	std::cout << "\n";
+	scrambler.setCube(cube);
+	scrambler.scramble(20);
+	std::string sequence = scrambler.getSequence();
+	std::cout << sequence;
+	std::cout << "\n";
+	std::cout << "\n";
+
+	cube = scrambler.getCube(); 
+
+
+	std::cout << "Scrambled cube" << "\n";
+	printCube(cube);
+
+	BeginnersMethodSolver solver;
+	solver.setCube(cube);
+	solver.SolveCross('t');
+	cube = solver.getCube();
+
+	std::cout << "Final cube" << "\n";
+	printCube(cube);
+	
     return 0;
 }
+
+
 
