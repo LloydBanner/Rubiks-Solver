@@ -10,7 +10,8 @@ public:
 	std::string sequence;
 
 	BeginnersMethodSolver();
-	void SolveCross(char colour);
+	void solveCross();
+	void solverTopCorners();
 	void setCube(RubiksCube cube);
 	RubiksCube getCube();
 	~BeginnersMethodSolver();

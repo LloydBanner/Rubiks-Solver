@@ -77,7 +77,8 @@ int main() {
 
 	BeginnersMethodSolver solver;
 	solver.setCube(cube);
-	solver.SolveCross('t');
+	solver.solveCross();
+	solver.solverTopCorners();
 	cube = solver.getCube();
 
 	std::cout << "Final cube" << "\n";
