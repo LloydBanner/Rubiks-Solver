@@ -13,6 +13,7 @@ public:
 	void solveCross();
 	void solverTopCorners();
 	void solveMiddleLayer();
+	void solveFinalface();
 	void setCube(RubiksCube cube);
 	RubiksCube getCube();
 	~BeginnersMethodSolver();

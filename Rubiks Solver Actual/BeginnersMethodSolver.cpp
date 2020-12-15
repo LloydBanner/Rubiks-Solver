@@ -543,6 +543,193 @@ void BeginnersMethodSolver::solveMiddleLayer() {
 	}
 }
 
+void BeginnersMethodSolver::solveFinalface() {
+	char colourFace = cubeToSolve.top.getPos(1, 1);
+	int numEdges = 0;
+
+	if (colourFace == cubeToSolve.top.getPos(0, 1)) {
+		numEdges++;
+	}
+	if (colourFace == cubeToSolve.top.getPos(1, 0)) {
+		numEdges++;
+	}
+	if (colourFace == cubeToSolve.top.getPos(1, 2)) {
+		numEdges++;
+	}
+	if (colourFace == cubeToSolve.top.getPos(2, 1)) {
+		numEdges++;
+	}
+	
+	while (numEdges < 2) {
+		cubeToSolve.doF(1);
+		cubeToSolve.doU(1);
+		cubeToSolve.doR(1);
+		cubeToSolve.doUPrime(1);
+		cubeToSolve.doRPrime(1);
+		cubeToSolve.doFPrime(1); 
+		
+		if (colourFace == cubeToSolve.top.getPos(0, 1)) {
+			numEdges++;
+		}
+		if (colourFace == cubeToSolve.top.getPos(1, 0)) {
+			numEdges++;
+		}
+		if (colourFace == cubeToSolve.top.getPos(1, 2)) {
+			numEdges++;
+		}
+		if (colourFace == cubeToSolve.top.getPos(2, 1)) {
+			numEdges++;
+		}
+
+		if (numEdges == 0) {
+			cubeToSolve.doU(1);
+		}
+	}
+		
+	if (numEdges == 2) {
+		if (colourFace == cubeToSolve.top.getPos(0, 1)) {
+			if (colourFace == cubeToSolve.top.getPos(1, 0)) {
+				cubeToSolve.doF(1);
+				cubeToSolve.doU(1);
+				cubeToSolve.doR(1);
+				cubeToSolve.doUPrime(1);
+				cubeToSolve.doRPrime(1);
+				cubeToSolve.doFPrime(1);
+			}
+			else if (colourFace == cubeToSolve.top.getPos(1, 2)) {
+				cubeToSolve.doUPrime(1);
+				cubeToSolve.doF(1);
+				cubeToSolve.doU(1);
+				cubeToSolve.doR(1);
+				cubeToSolve.doUPrime(1);
+				cubeToSolve.doRPrime(1);
+				cubeToSolve.doFPrime(1);
+			}
+			else {
+				cubeToSolve.doUPrime(1);
+				cubeToSolve.doF(1);
+				cubeToSolve.doR(1);
+				cubeToSolve.doU(1);
+				cubeToSolve.doRPrime(1);
+				cubeToSolve.doUPrime(1);
+				cubeToSolve.doFPrime(1);
+			}
+		}
+		else if (colourFace == cubeToSolve.top.getPos(1, 0)) {
+			if (colourFace == cubeToSolve.top.getPos(1, 2)) {
+				cubeToSolve.doF(1);
+				cubeToSolve.doR(1);
+				cubeToSolve.doU(1);
+				cubeToSolve.doRPrime(1);
+				cubeToSolve.doUPrime(1);
+				cubeToSolve.doFPrime(1);
+			}
+			else {
+				cubeToSolve.doU(1);
+				cubeToSolve.doF(1);
+				cubeToSolve.doU(1);
+				cubeToSolve.doR(1);
+				cubeToSolve.doUPrime(1);
+				cubeToSolve.doRPrime(1);
+				cubeToSolve.doFPrime(1);
+			}
+		}
+		else {
+			cubeToSolve.doU(2);
+			cubeToSolve.doF(1);
+			cubeToSolve.doU(1);
+			cubeToSolve.doR(1);
+			cubeToSolve.doUPrime(1);
+			cubeToSolve.doRPrime(1);
+			cubeToSolve.doFPrime(1);
+		}
+
+		numEdges = 0;
+		if (colourFace == cubeToSolve.top.getPos(0, 1)) {
+			numEdges++;
+		}
+		if (colourFace == cubeToSolve.top.getPos(1, 0)) {
+			numEdges++;
+		}
+		if (colourFace == cubeToSolve.top.getPos(1, 2)) {
+			numEdges++;
+		}
+		if (colourFace == cubeToSolve.top.getPos(2, 1)) {
+			numEdges++;
+		}
+	}
+
+	//Top cross should be solved
+	bool cornersSolved = false;
+	int repeat = 3;
+	while (!cornersSolved) {
+		if (colourFace == cubeToSolve.top.getPos(2, 0)) {
+			cubeToSolve.doR(1);
+			cubeToSolve.doU(1);
+			cubeToSolve.doRPrime(1);
+			cubeToSolve.doU(1);
+			cubeToSolve.doR(1);
+			cubeToSolve.doU(2);
+			cubeToSolve.doRPrime(1);
+		} else if (colourFace == cubeToSolve.top.getPos(2, 2)) {
+			cubeToSolve.doU(1);
+			cubeToSolve.doR(1);
+			cubeToSolve.doU(1);
+			cubeToSolve.doRPrime(1);
+			cubeToSolve.doU(1);
+			cubeToSolve.doR(1);
+			cubeToSolve.doU(2);
+			cubeToSolve.doRPrime(1);
+		}
+		else if (colourFace == cubeToSolve.top.getPos(0, 0)) {
+			cubeToSolve.doUPrime(1);
+			cubeToSolve.doR(1);
+			cubeToSolve.doU(1);
+			cubeToSolve.doRPrime(1);
+			cubeToSolve.doU(1);
+			cubeToSolve.doR(1);
+			cubeToSolve.doU(2);
+			cubeToSolve.doRPrime(1);
+		}
+		else if (colourFace == cubeToSolve.top.getPos(0, 2)){
+			cubeToSolve.doU(2);
+			cubeToSolve.doR(1);
+			cubeToSolve.doU(1);
+			cubeToSolve.doRPrime(1);
+			cubeToSolve.doU(1);
+			cubeToSolve.doR(1);
+			cubeToSolve.doU(2);
+			cubeToSolve.doRPrime(1);
+		}
+		else {
+			cubeToSolve.doR(1);
+			cubeToSolve.doU(1);
+			cubeToSolve.doRPrime(1);
+			cubeToSolve.doU(1);
+			cubeToSolve.doR(1);
+			cubeToSolve.doU(2);
+			cubeToSolve.doRPrime(1);
+		}
+
+		repeat--;
+		if (repeat == 0) {
+			cubeToSolve.doU(1);
+			cubeToSolve.doR(1);
+			cubeToSolve.doU(1);
+			cubeToSolve.doRPrime(1);
+			cubeToSolve.doU(1);
+			cubeToSolve.doR(1);
+			cubeToSolve.doU(2);
+			cubeToSolve.doRPrime(1);
+			repeat = 3;
+		}
+
+		if (colourFace == cubeToSolve.top.getPos(0, 0) && colourFace == cubeToSolve.top.getPos(0, 2) && colourFace == cubeToSolve.top.getPos(2, 0) && colourFace == cubeToSolve.top.getPos(2, 2)) {
+			cornersSolved = true;
+		}
+	}
+}
+
 void BeginnersMethodSolver::setCube(RubiksCube cube) {
 	cubeToSolve = cube;
 }
