@@ -12,6 +12,7 @@ public:
 	BeginnersMethodSolver();
 	void solveCross();
 	void solverTopCorners();
+	void solveMiddleLayer();
 	void setCube(RubiksCube cube);
 	RubiksCube getCube();
 	~BeginnersMethodSolver();

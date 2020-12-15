@@ -79,6 +79,7 @@ int main() {
 	solver.setCube(cube);
 	solver.solveCross();
 	solver.solverTopCorners();
+	solver.solveMiddleLayer();
 	cube = solver.getCube();
 
 	std::cout << "Final cube" << "\n";

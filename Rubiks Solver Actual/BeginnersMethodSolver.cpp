@@ -488,6 +488,61 @@ void BeginnersMethodSolver::solverTopCorners() {
 
 }
 
+void BeginnersMethodSolver::solveMiddleLayer() {
+	cubeToSolve.rotateCubeUp(2);
+
+	bool middleLayerSolved = false;
+	while (!middleLayerSolved) {
+		for (int i = 0; i < 4; i++) {
+			if (cubeToSolve.front.getPos(1, 1) == cubeToSolve.front.getPos(0, 1)) {
+				if (cubeToSolve.top.getPos(2, 1) == cubeToSolve.rightSide.getPos(1, 1)) {
+					cubeToSolve.doU(1);
+					cubeToSolve.doR(1);
+					cubeToSolve.doUPrime(1);
+					cubeToSolve.doRPrime(1);
+					cubeToSolve.doUPrime(1);
+					cubeToSolve.doFPrime(1);
+					cubeToSolve.doU(1);
+					cubeToSolve.doF(1);
+				}
+				else {
+					cubeToSolve.doUPrime(1);
+					cubeToSolve.doLPrime(1);
+					cubeToSolve.doU(1);
+					cubeToSolve.doL(1);
+					cubeToSolve.doU(1);
+					cubeToSolve.doF(1);
+					cubeToSolve.doUPrime(1);
+					cubeToSolve.doFPrime(1);
+
+				}
+			}
+			cubeToSolve.doU(1);
+		}
+		cubeToSolve.rotateCubeRight(1);
+
+		bool frontSolved = false;
+		bool backSolved = false;
+		bool rightSolved = false;
+		bool leftSolved = false;
+		if (cubeToSolve.front.getPos(1, 1) == cubeToSolve.front.getPos(1, 0) && cubeToSolve.front.getPos(1, 1) == cubeToSolve.front.getPos(1, 2)) {
+			frontSolved = true;
+		}
+		if (cubeToSolve.back.getPos(1, 1) == cubeToSolve.back.getPos(1, 0) && cubeToSolve.back.getPos(1, 1) == cubeToSolve.back.getPos(1, 2)) {
+			backSolved = true;
+		}
+		if (cubeToSolve.leftSide.getPos(1, 1) == cubeToSolve.leftSide.getPos(1, 0) && cubeToSolve.leftSide.getPos(1, 1) == cubeToSolve.leftSide.getPos(1, 2)) {
+			leftSolved = true;
+		}
+		if (cubeToSolve.rightSide.getPos(1, 1) == cubeToSolve.rightSide.getPos(1, 0) && cubeToSolve.rightSide.getPos(1, 1) == cubeToSolve.rightSide.getPos(1, 2)) {
+			rightSolved = true;
+		}
+		if (frontSolved && backSolved && rightSolved && leftSolved) {
+			middleLayerSolved = true;
+		}
+	}
+}
+
 void BeginnersMethodSolver::setCube(RubiksCube cube) {
 	cubeToSolve = cube;
 }
