@@ -3,6 +3,7 @@
 
 #include "stdafx.h"
 #include <iostream>
+#include <chrono>
 
 #include "RubiksCube.h"
 #include "Scrambler.h"
@@ -77,13 +78,19 @@ int main() {
 
 	BeginnersMethodSolver solver;
 	solver.setCube(cube);
+	std::chrono::high_resolution_clock::time_point start = std::chrono::high_resolution_clock::now();
 	solver.solveCross();
 	solver.solverTopCorners();
 	solver.solveMiddleLayer();
 	solver.solveFinalface();
+	solver.completeCorners();
+	solver.completeEdges();
+	std::chrono::high_resolution_clock::time_point end = std::chrono::high_resolution_clock::now();
 	cube = solver.getCube();
 
-	std::cout << "Final cube" << "\n";
+	std::chrono::duration<double, std::milli> duration = end - start;
+
+	std::cout << "Final cube: took " << duration.count() << "ms to solve" <<  "\n";
 	printCube(cube);
 	
     return 0;

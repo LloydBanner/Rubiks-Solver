@@ -14,6 +14,8 @@ public:
 	void solverTopCorners();
 	void solveMiddleLayer();
 	void solveFinalface();
+	void completeCorners();
+	void completeEdges();
 	void setCube(RubiksCube cube);
 	RubiksCube getCube();
 	~BeginnersMethodSolver();
