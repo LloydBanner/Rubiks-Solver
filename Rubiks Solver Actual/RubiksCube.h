@@ -1,9 +1,13 @@
 #pragma once
 #include "Face.h"
+#include <string>
+
 class RubiksCube {
 public:
 	int width = 3;
 	int height = 3;
+	std::string moves = "";
+	int numMoves = 0;
 	Face front = Face("front");
 	Face back = Face("back");
 	Face leftSide = Face("leftSide");
@@ -29,5 +33,8 @@ public:
 	void doUPrime(int num);
 	void doD(int num);
 	void doDPrime(int num);
+	std::string getMoves();
+	int getNumMoves();
+	void resetMoves();
 };
 

@@ -10,6 +10,7 @@
 #include "BeginnersMethodSolver.h"
 
 void printCube(RubiksCube cube) {
+	std::cout << "front" << "\n";
 	for (int i = 0; i < 3; i++) {
 		for (int j = 0; j < 3; j++) {
 			std::cout << cube.front.getPos(i, j);
@@ -17,6 +18,7 @@ void printCube(RubiksCube cube) {
 		std::cout << "\n";
 	}
 	std::cout << "\n";
+	std::cout << "back" << "\n";
 	for (int i = 0; i < 3; i++) {
 		for (int j = 0; j < 3; j++) {
 			std::cout << cube.back.getPos(i, j), "\n";
@@ -24,6 +26,7 @@ void printCube(RubiksCube cube) {
 		std::cout << "\n";
 	}
 	std::cout << "\n";
+	std::cout << "left" << "\n";
 	for (int i = 0; i < 3; i++) {
 		for (int j = 0; j < 3; j++) {
 			std::cout << cube.leftSide.getPos(i, j), "\n";
@@ -31,6 +34,7 @@ void printCube(RubiksCube cube) {
 		std::cout << "\n";
 	}
 	std::cout << "\n";
+	std::cout << "right" << "\n";
 	for (int i = 0; i < 3; i++) {
 		for (int j = 0; j < 3; j++) {
 			std::cout << cube.rightSide.getPos(i, j), "\n";
@@ -38,6 +42,7 @@ void printCube(RubiksCube cube) {
 		std::cout << "\n";
 	}
 	std::cout << "\n";
+	std::cout << "top" << "\n";
 	for (int i = 0; i < 3; i++) {
 		for (int j = 0; j < 3; j++) {
 			std::cout << cube.top.getPos(i, j), "\n";
@@ -45,6 +50,7 @@ void printCube(RubiksCube cube) {
 		std::cout << "\n";
 	}
 	std::cout << "\n";
+	std::cout << "bottom" << "\n";
 	for (int i = 0; i < 3; i++) {
 		for (int j = 0; j < 3; j++) {
 			std::cout << cube.bottom.getPos(i, j), "\n";
@@ -56,43 +62,65 @@ void printCube(RubiksCube cube) {
 
 int main() {
 	std::cout << "Hello World! \n";
-	RubiksCube cube; 
-	Scrambler scrambler;
 
-	std::cout << "initial cube" << "\n";
-	printCube(cube);
+	int numberValid = 0;
+	int totalMoves = 0;
+	float totalDuration = 0;
+	int numberToTest = 1000;
 
-	std::cout << "\n";
-	scrambler.setCube(cube);
-	scrambler.scramble(20);
-	std::string sequence = scrambler.getSequence();
-	std::cout << sequence;
-	std::cout << "\n";
-	std::cout << "\n";
+	for (int i = 0; i < numberToTest; i++) {
+		RubiksCube cube;
+		Scrambler scrambler;
 
-	cube = scrambler.getCube(); 
+		std::cout << "initial cube" << "\n";
+		printCube(cube);
+
+		std::cout << "\n";
+		scrambler.setCube(cube);
+		scrambler.scramble(20);
+		std::string sequence = scrambler.getSequence();
+		std::cout << sequence;
+		std::cout << "\n";
+		std::cout << "\n";
+
+		cube = scrambler.getCube();
 
 
-	std::cout << "Scrambled cube" << "\n";
-	printCube(cube);
+		std::cout << "Scrambled cube" << "\n";
+		printCube(cube);
 
-	BeginnersMethodSolver solver;
-	solver.setCube(cube);
-	std::chrono::high_resolution_clock::time_point start = std::chrono::high_resolution_clock::now();
-	solver.solveCross();
-	solver.solverTopCorners();
-	solver.solveMiddleLayer();
-	solver.solveFinalface();
-	solver.completeCorners();
-	solver.completeEdges();
-	std::chrono::high_resolution_clock::time_point end = std::chrono::high_resolution_clock::now();
-	cube = solver.getCube();
+		BeginnersMethodSolver solver;
+		solver.setCube(cube);
+		std::chrono::high_resolution_clock::time_point start = std::chrono::high_resolution_clock::now();
+		solver.solveCross();
+		solver.solverTopCorners();
+		solver.solveMiddleLayer();
+		solver.solveFinalface();
+		solver.completeCorners();
+		solver.completeEdges();
+		std::chrono::high_resolution_clock::time_point end = std::chrono::high_resolution_clock::now();
 
-	std::chrono::duration<double, std::milli> duration = end - start;
+		if (solver.isSolutionValid()) {
+			numberValid += 1;
+		}
+		cube = solver.getCube();
+		//std::cout << "Solved in " << cube.getNumMoves() << " moves" << "\n";
+		//std::cout << cube.getMoves() << "\n";
 
-	std::cout << "Final cube: took " << duration.count() << "ms to solve" <<  "\n";
-	printCube(cube);
+		std::chrono::duration<double, std::milli> duration = end - start;
+
+		std::cout << "Final cube: took " << duration.count() << "ms to solve" << "\n";
+		printCube(cube);
+
+		totalMoves += cube.getNumMoves();
+		totalDuration += duration.count();
+	}
 	
+	float averageDuration = totalDuration / numberToTest;
+	std::cout << "Out of " << numberToTest << " there were " << numberValid << " valid cubes" << "\n";
+	std::cout << "Average number of moves was " << totalMoves / numberToTest << "\n";
+	std::cout << "Average time to solve was " << averageDuration << "ms" << "\n";
+
     return 0;
 }
 

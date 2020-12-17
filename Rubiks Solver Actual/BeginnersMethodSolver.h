@@ -16,6 +16,7 @@ public:
 	void solveFinalface();
 	void completeCorners();
 	void completeEdges();
+	bool isSolutionValid();
 	void setCube(RubiksCube cube);
 	RubiksCube getCube();
 	~BeginnersMethodSolver();

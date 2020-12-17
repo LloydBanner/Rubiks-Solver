@@ -14,8 +14,6 @@ RubiksCube::RubiksCube() {
 			temp.setPos(i, j, 'X');
 		}
 	}
-	//front.setPos(0, 1, 'W');
-	//top.setPos(2, 1, 'O');
 }
 
 RubiksCube::~RubiksCube() {
@@ -40,6 +38,8 @@ void RubiksCube::rotateCubeRight(int num) {
 			}
 		}
 		bottom.setFace(temp.getFace());
+
+		moves.append("rotate right, ");
 	}
 }
 
@@ -70,6 +70,8 @@ void RubiksCube::rotateCubeUp(int num) {
 			}
 		}
 		leftSide.setFace(temp.getFace());
+
+		moves.append("rotate up, ");
 	}
 }
 
@@ -88,6 +90,9 @@ void RubiksCube::doR(int num) {
 			}
 		}
 		rightSide.setFace(temp.getFace());
+
+		moves.append("R, ");
+		numMoves += 1;
 	}
 }
 
@@ -106,6 +111,9 @@ void RubiksCube::doRPrime(int num) {
 			}
 		}
 		rightSide.setFace(temp.getFace());
+
+		moves.append("R', ");
+		numMoves += 1;
 	}
 }
 
@@ -124,6 +132,9 @@ void RubiksCube::doL(int num) {
 			}
 		}
 		leftSide.setFace(temp.getFace());
+
+		moves.append("L, ");
+		numMoves += 1;
 	}
 }
 
@@ -142,6 +153,9 @@ void RubiksCube::doLPrime(int num) {
 			}
 		}
 		leftSide.setFace(temp.getFace());
+
+		moves.append("L', ");
+		numMoves += 1;
 	}
 }
 
@@ -160,6 +174,9 @@ void RubiksCube::doF(int num) {
 			}
 		}
 		front.setFace(temp.getFace());
+
+		moves.append("F, ");
+		numMoves += 1;
 	}
 }
 
@@ -178,6 +195,9 @@ void RubiksCube::doFPrime(int num) {
 			}
 		}
 		front.setFace(temp.getFace());
+
+		moves.append("F', ");
+		numMoves += 1;
 	}
 }
 
@@ -196,6 +216,9 @@ void RubiksCube::doB(int num) {
 			}
 		}
 		back.setFace(temp.getFace());
+
+		moves.append("B, ");
+		numMoves += 1;
 	}
 }
 
@@ -214,6 +237,9 @@ void RubiksCube::doBPrime(int num) {
 			}
 		}
 		back.setFace(temp.getFace());
+
+		moves.append("B', ");
+		numMoves += 1;
 	}
 }
 
@@ -232,6 +258,9 @@ void RubiksCube::doU(int num) {
 			}
 		}
 		top.setFace(temp.getFace());
+
+		moves.append("U, ");
+		numMoves += 1;
 	}
 }
 
@@ -250,6 +279,9 @@ void RubiksCube::doUPrime(int num) {
 			}
 		}
 		top.setFace(temp.getFace());
+
+		moves.append("U', ");
+		numMoves += 1;
 	}
 }
 
@@ -268,6 +300,9 @@ void RubiksCube::doD(int num) {
 			}
 		}
 		bottom.setFace(temp.getFace());
+
+		moves.append("D, ");
+		numMoves += 1;
 	}
 }
 
@@ -286,5 +321,21 @@ void RubiksCube::doDPrime(int num) {
 			}
 		}
 		bottom.setFace(temp.getFace());
+
+		moves.append("D', ");
+		numMoves += 1;
 	}
+}
+
+std::string RubiksCube::getMoves() {
+	return moves;
+}
+
+int RubiksCube::getNumMoves() {
+	return numMoves;
+}
+
+void RubiksCube::resetMoves() {
+	moves = "";
+	numMoves = 0;
 }
