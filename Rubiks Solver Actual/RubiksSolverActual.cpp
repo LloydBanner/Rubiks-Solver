@@ -90,6 +90,7 @@ int main() {
 		printCube(cube);
 
 		BeginnersMethodSolver solver;
+		cube.resetMoves();
 		solver.setCube(cube);
 		std::chrono::high_resolution_clock::time_point start = std::chrono::high_resolution_clock::now();
 		solver.solveCross();
