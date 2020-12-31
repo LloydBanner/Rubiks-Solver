@@ -8,6 +8,7 @@
 #include "RubiksCube.h"
 #include "Scrambler.h"
 #include "BeginnersMethodSolver.h"
+#include "CornersFirstSolver.h"
 
 void printCube(RubiksCube cube) {
 	std::cout << "front" << "\n";
@@ -60,9 +61,7 @@ void printCube(RubiksCube cube) {
 	std::cout << "\n";
 }
 
-int main() {
-	std::cout << "Hello World! \n";
-
+void testBeginnersMethod() {
 	int numberValid = 0;
 	int totalMoves = 0;
 	float totalDuration = 0;
@@ -116,11 +115,53 @@ int main() {
 		totalMoves += cube.getNumMoves();
 		totalDuration += duration.count();
 	}
-	
+
 	float averageDuration = totalDuration / numberToTest;
 	std::cout << "Out of " << numberToTest << " there were " << numberValid << " valid cubes" << "\n";
 	std::cout << "Average number of moves was " << totalMoves / numberToTest << "\n";
 	std::cout << "Average time to solve was " << averageDuration << "ms" << "\n";
+}
+
+void testCornersFirst() {
+	int numberValid = 0;
+	int totalMoves = 0;
+	float totalDuration = 0;
+	int numberToTest = 1000;
+
+	RubiksCube cube;
+	Scrambler scrambler;
+
+	std::cout << "initial cube" << "\n";
+	printCube(cube);
+
+	std::cout << "\n";
+	scrambler.setCube(cube);
+	scrambler.scramble(20);
+	std::string sequence = scrambler.getSequence();
+	std::cout << sequence;
+	std::cout << "\n";
+	std::cout << "\n";
+
+	cube = scrambler.getCube();
+
+
+	std::cout << "Scrambled cube" << "\n";
+	printCube(cube);
+
+	CornersFirstSolver solver;
+
+	solver.setCube(cube);
+	solver.solveBottomCorners();
+	cube = solver.getCube();
+
+	std::cout << "Current Solution cube" << "\n";
+	printCube(cube);
+}
+
+int main() {
+	std::cout << "Hello World! \n";
+
+	testCornersFirst();
 
     return 0;
 }

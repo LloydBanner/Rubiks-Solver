@@ -147,6 +147,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BeginnersMethodSolver.h" />
+    <ClInclude Include="CornersFirstSolver.h" />
     <ClInclude Include="Face.h" />
     <ClInclude Include="RubiksCube.h" />
     <ClInclude Include="Scrambler.h" />
@@ -155,6 +156,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BeginnersMethodSolver.cpp" />
+    <ClCompile Include="CornersFirstSolver.cpp" />
     <ClCompile Include="Face.cpp" />
     <ClCompile Include="RubiksCube.cpp" />
     <ClCompile Include="RubiksSolverActual.cpp" />
