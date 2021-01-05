@@ -14,6 +14,7 @@ public:
 
 	void solveBottomCorners();
 	void solveTopCorners();
+	void solveThreeLedges();
 	bool isSolutionValid();
 	void setCube(RubiksCube cube);
 	RubiksCube getCube();

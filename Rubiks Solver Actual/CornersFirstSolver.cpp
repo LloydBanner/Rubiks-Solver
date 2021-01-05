@@ -378,11 +378,6 @@ void CornersFirstSolver::solveTopCorners() {
 			cubeToSolve.rotateCubeRight(3);
 		}
 		cubeToSolve.rotateCubeRight(1);
-		//if (count == 50) {
-		//	count = 0;
-		//	cornersSolved = true;
-		//}
-		count++;
 		
 		bool backRightCorrect = false;
 		bool backLeftCorrect = false;
@@ -403,6 +398,132 @@ void CornersFirstSolver::solveTopCorners() {
 
 		if (frontLeftCorrect&& frontRightCorrect && backLeftCorrect && backRightCorrect) {
 			cornersSolved = true;
+		}
+	}
+}
+
+void CornersFirstSolver::solveThreeLedges() {
+	//left edges
+
+	bool ledgesSolved = false;
+	int count = 0;
+	while (!ledgesSolved) {
+		if (cubeToSolve.front.getPos(2, 1) == cubeToSolve.top.getPos(0, 0) && cubeToSolve.bottom.getPos(0, 1) == cubeToSolve.leftSide.getPos(0, 0)) {
+			cubeToSolve.doUPrime(1);
+			//M'
+			cubeToSolve.doL(1);
+			cubeToSolve.doRPrime(1);
+			cubeToSolve.rotateCubeUp(1);
+			//end M'
+			cubeToSolve.doU(1);
+		}
+		else if (cubeToSolve.front.getPos(2, 1) == cubeToSolve.leftSide.getPos(0, 0) && cubeToSolve.bottom.getPos(0, 1) == cubeToSolve.top.getPos(0, 0)) {
+			cubeToSolve.doU(1);
+			//M'*2
+			cubeToSolve.doL(2);
+			cubeToSolve.doRPrime(2);
+			cubeToSolve.rotateCubeUp(2);
+			//end M'*2
+			cubeToSolve.doUPrime(1);
+		}
+		else if (cubeToSolve.rightSide.getPos(0, 1) == cubeToSolve.top.getPos(0, 0) && cubeToSolve.top.getPos(1, 2) == cubeToSolve.leftSide.getPos(0, 0)) {
+			cubeToSolve.doUPrime(1);
+			//M
+			cubeToSolve.doLPrime(1);
+			cubeToSolve.doR(1);
+			cubeToSolve.rotateCubeUp(3);
+			//end M
+			cubeToSolve.doU(1);
+		}
+		else if (cubeToSolve.rightSide.getPos(0, 1) == cubeToSolve.leftSide.getPos(0, 0) && cubeToSolve.top.getPos(1, 2) == cubeToSolve.top.getPos(0, 0)) {
+			cubeToSolve.doU(1);
+			//M
+			cubeToSolve.doLPrime(1);
+			cubeToSolve.doR(1);
+			cubeToSolve.rotateCubeUp(3);
+			//end M
+			cubeToSolve.doU(2);
+			//M'
+			cubeToSolve.doL(1);
+			cubeToSolve.doRPrime(1);
+			cubeToSolve.rotateCubeUp(1);
+			//end M'
+			cubeToSolve.doU(1);
+		}
+		else if (cubeToSolve.top.getPos(1, 0) == cubeToSolve.leftSide.getPos(0, 0) && cubeToSolve.leftSide.getPos(0, 1) == cubeToSolve.top.getPos(0, 0)) {
+			cubeToSolve.doUPrime(1);
+			//M
+			cubeToSolve.doLPrime(1);
+			cubeToSolve.doR(1);
+			cubeToSolve.rotateCubeUp(3);
+			//end M
+			cubeToSolve.doU(2);
+			//M'*2
+			cubeToSolve.doL(2);
+			cubeToSolve.doRPrime(2);
+			cubeToSolve.rotateCubeUp(2);
+			//end M'*2
+			cubeToSolve.doUPrime(1);
+		}
+		else if (count == 15) {
+			for (int i = 0; i < 4; i++) {
+				cubeToSolve.doUPrime(1);
+				//M'
+				cubeToSolve.doL(1);
+				cubeToSolve.doRPrime(1);
+				cubeToSolve.rotateCubeUp(1);
+				//end M'
+				cubeToSolve.doU(1);
+				cubeToSolve.rotateCubeUp(1);
+			}
+		}
+		else if (count == 25) {
+			for (int i = 0; i < 4; i++) {
+				cubeToSolve.doU(1);
+				//M'*2
+				cubeToSolve.doL(2);
+				cubeToSolve.doRPrime(2);
+				cubeToSolve.rotateCubeUp(2);
+				//end M'*2
+				cubeToSolve.doUPrime(1);
+			}
+		}
+		else if (count == 35) {
+			count = 0;
+			for (int i = 0; i < 4; i++) {
+				cubeToSolve.doUPrime(1);
+				//M
+				cubeToSolve.doLPrime(1);
+				cubeToSolve.doR(1);
+				cubeToSolve.rotateCubeUp(3);
+				//end M
+				cubeToSolve.doU(2);
+				//M'*2
+				cubeToSolve.doL(2);
+				cubeToSolve.doRPrime(2);
+				cubeToSolve.rotateCubeUp(2);
+				//end M'*2
+				cubeToSolve.doUPrime(1);
+			}
+		}
+		count++;
+		cubeToSolve.rotateCubeUp(1);
+
+		bool bottomLedgeSolved = false;
+		bool backLedgeSolved = false;
+		bool frontLedgeSolved = false;
+		if (cubeToSolve.leftSide.getPos(2, 1) == cubeToSolve.leftSide.getPos(0, 0) && cubeToSolve.bottom.getPos(1, 0) == cubeToSolve.bottom.getPos(0, 0)) {
+			bottomLedgeSolved = true;
+		}
+		if (cubeToSolve.leftSide.getPos(1, 0) == cubeToSolve.leftSide.getPos(0, 0) && cubeToSolve.back.getPos(1, 2) == cubeToSolve.back.getPos(0, 0)) {
+			backLedgeSolved = true;
+		}
+		if (cubeToSolve.leftSide.getPos(1, 2) == cubeToSolve.leftSide.getPos(0, 0) && cubeToSolve.front.getPos(1, 0) == cubeToSolve.front.getPos(0, 0)) {
+			frontLedgeSolved = true;
+		}
+
+		if (bottomLedgeSolved && backLedgeSolved && frontLedgeSolved) {
+			ledgesSolved = true;
 		}
 	}
 }
