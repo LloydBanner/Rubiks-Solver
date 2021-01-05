@@ -13,6 +13,7 @@ public:
 	CornersFirstSolver();
 
 	void solveBottomCorners();
+	void solveTopCorners();
 	bool isSolutionValid();
 	void setCube(RubiksCube cube);
 	RubiksCube getCube();
