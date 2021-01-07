@@ -671,6 +671,51 @@ void CornersFirstSolver::solveRedges() {
 	}
 }
 
+void CornersFirstSolver::solveLastLedge() {
+	//last left edge
+
+	for (int i = 0; i < 4; i++) {
+		if (cubeToSolve.leftSide.getPos(0, 0) == cubeToSolve.leftSide.getPos(0, 1)) {
+			break;
+		}
+		if (cubeToSolve.leftSide.getPos(0, 0) == cubeToSolve.front.getPos(2, 1)) {
+			cubeToSolve.doUPrime(1);
+			//M
+			cubeToSolve.doLPrime(1);
+			cubeToSolve.doR(1);
+			cubeToSolve.rotateCubeUp(3);
+			//end M
+			cubeToSolve.doU(2);
+			//M
+			cubeToSolve.doLPrime(1);
+			cubeToSolve.doR(1);
+			cubeToSolve.rotateCubeUp(3);
+			//end M
+			cubeToSolve.doUPrime(1);
+		}
+		else if (cubeToSolve.leftSide.getPos(0, 0) == cubeToSolve.back.getPos(2, 1)) {
+			cubeToSolve.doU(1);
+			//M'
+			cubeToSolve.doL(1);
+			cubeToSolve.doRPrime(1);
+			cubeToSolve.rotateCubeUp(1);
+			//end M'
+			cubeToSolve.doU(2);
+			//M'
+			cubeToSolve.doL(1);
+			cubeToSolve.doRPrime(1);
+			cubeToSolve.rotateCubeUp(1);
+			//end M'
+			cubeToSolve.doU(1);
+		}
+		//M'
+		cubeToSolve.doL(1);
+		cubeToSolve.doRPrime(1);
+		cubeToSolve.rotateCubeUp(1);
+		//end M'
+	}
+}
+
 bool CornersFirstSolver::isSolutionValid() {
 	bool valid = true;
 
