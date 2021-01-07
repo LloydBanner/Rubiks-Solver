@@ -154,6 +154,7 @@ void testCornersFirst() {
 	solver.solveBottomCorners();
 	solver.solveTopCorners();
 	solver.solveThreeLedges();
+	solver.solveRedges();
 	cube = solver.getCube();
 
 	std::cout << "Current Solution cube" << "\n";
