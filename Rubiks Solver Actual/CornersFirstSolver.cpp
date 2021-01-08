@@ -716,6 +716,120 @@ void CornersFirstSolver::solveLastLedge() {
 	}
 }
 
+void CornersFirstSolver::flipMidges() {
+	//flip middle edges in to the correct orientation for the last step
+
+	bool midgesFlippedCorrectly = false;
+	while (!midgesFlippedCorrectly) {
+		for (int i = 0; i < 4; i++) {
+			if (cubeToSolve.front.getPos(0, 1) != cubeToSolve.front.getPos(1, 1) && cubeToSolve.front.getPos(0, 1) != cubeToSolve.back.getPos(1, 1)) {
+				if (cubeToSolve.back.getPos(0, 1) != cubeToSolve.front.getPos(1, 1) && cubeToSolve.back.getPos(0, 1) != cubeToSolve.back.getPos(1, 1)) {
+					//M'
+					cubeToSolve.doL(1);
+					cubeToSolve.doRPrime(1);
+					cubeToSolve.rotateCubeUp(1);
+					//end M'
+					cubeToSolve.doU(1);
+					//M'
+					cubeToSolve.doL(1);
+					cubeToSolve.doRPrime(1);
+					cubeToSolve.rotateCubeUp(1);
+					//end M'
+					cubeToSolve.doU(1);
+					//M'
+					cubeToSolve.doL(1);
+					cubeToSolve.doRPrime(1);
+					cubeToSolve.rotateCubeUp(1);
+					//end M'
+					cubeToSolve.doU(2);
+					//M
+					cubeToSolve.doLPrime(1);
+					cubeToSolve.doR(1);
+					cubeToSolve.rotateCubeUp(3);
+					//end M
+					cubeToSolve.doU(1);
+					//M
+					cubeToSolve.doLPrime(1);
+					cubeToSolve.doR(1);
+					cubeToSolve.rotateCubeUp(3);
+					//end M
+					cubeToSolve.doU(1);
+					//M
+					cubeToSolve.doLPrime(1);
+					cubeToSolve.doR(1);
+					cubeToSolve.rotateCubeUp(3);
+					//end M
+					cubeToSolve.doU(2);
+				}
+			}
+			cubeToSolve.rotateCubeUp(1);
+		}
+
+		bool frontTopCorrect = false;
+		bool frontBottomCorrect = false;
+		bool backTopCorrect = false;
+		bool backBottomCorrect = false;
+
+		if (cubeToSolve.front.getPos(0, 1) == cubeToSolve.front.getPos(1, 1) || cubeToSolve.front.getPos(0, 1) == cubeToSolve.back.getPos(1, 1)) {
+			frontTopCorrect = true;
+		}
+		if (cubeToSolve.front.getPos(2, 1) == cubeToSolve.front.getPos(1, 1) || cubeToSolve.front.getPos(2, 1) == cubeToSolve.back.getPos(1, 1)) {
+			frontBottomCorrect = true;
+		}
+		if (cubeToSolve.back.getPos(0, 1) == cubeToSolve.front.getPos(1, 1) || cubeToSolve.back.getPos(0, 1) == cubeToSolve.back.getPos(1, 1)) {
+			backTopCorrect = true;
+		}
+		if (cubeToSolve.back.getPos(2, 1) == cubeToSolve.front.getPos(1, 1) || cubeToSolve.back.getPos(2, 1) == cubeToSolve.back.getPos(1, 1)) {
+			backBottomCorrect = true;
+		}
+
+		if (frontTopCorrect && frontBottomCorrect && backTopCorrect && backBottomCorrect) {
+			midgesFlippedCorrectly = true;
+		}
+		else {
+			for (int i = 0; i < 2; i++) {
+				//M'
+				cubeToSolve.doL(1);
+				cubeToSolve.doRPrime(1);
+				cubeToSolve.rotateCubeUp(1);
+				//end M'
+				cubeToSolve.doU(1);
+				//M'
+				cubeToSolve.doL(1);
+				cubeToSolve.doRPrime(1);
+				cubeToSolve.rotateCubeUp(1);
+				//end M'
+				cubeToSolve.doU(1);
+				//M'
+				cubeToSolve.doL(1);
+				cubeToSolve.doRPrime(1);
+				cubeToSolve.rotateCubeUp(1);
+				//end M'
+				cubeToSolve.doU(2);
+				//M
+				cubeToSolve.doLPrime(1);
+				cubeToSolve.doR(1);
+				cubeToSolve.rotateCubeUp(3);
+				//end M
+				cubeToSolve.doU(1);
+				//M
+				cubeToSolve.doLPrime(1);
+				cubeToSolve.doR(1);
+				cubeToSolve.rotateCubeUp(3);
+				//end M
+				cubeToSolve.doU(1);
+				//M
+				cubeToSolve.doLPrime(1);
+				cubeToSolve.doR(1);
+				cubeToSolve.rotateCubeUp(3);
+				//end M
+				cubeToSolve.doU(2);
+				cubeToSolve.rotateCubeUp(1);
+			}
+		}
+	}
+}
+
 bool CornersFirstSolver::isSolutionValid() {
 	bool valid = true;
 

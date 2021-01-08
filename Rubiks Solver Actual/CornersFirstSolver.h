@@ -17,6 +17,7 @@ public:
 	void solveThreeLedges();
 	void solveRedges();
 	void solveLastLedge();
+	void flipMidges();
 	bool isSolutionValid();
 	void setCube(RubiksCube cube);
 	RubiksCube getCube();

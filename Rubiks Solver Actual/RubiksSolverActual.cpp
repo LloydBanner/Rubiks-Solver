@@ -156,6 +156,9 @@ void testCornersFirst() {
 	solver.solveThreeLedges();
 	solver.solveRedges();
 	solver.solveLastLedge();
+	std::cout << "Before midges" << "\n";
+	printCube(solver.getCube());
+	solver.flipMidges();
 	cube = solver.getCube();
 
 	std::cout << "Current Solution cube" << "\n";
