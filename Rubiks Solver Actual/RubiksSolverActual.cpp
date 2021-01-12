@@ -150,6 +150,7 @@ void testCornersFirst() {
 
 	CornersFirstSolver solver;
 
+	std::chrono::high_resolution_clock::time_point start = std::chrono::high_resolution_clock::now();
 	solver.setCube(cube);
 	solver.solveBottomCorners();
 	solver.solveTopCorners();
@@ -159,9 +160,15 @@ void testCornersFirst() {
 	std::cout << "Before midges" << "\n";
 	printCube(solver.getCube());
 	solver.flipMidges();
+	std::cout << "After midges" << "\n";
+	printCube(solver.getCube());
+	solver.completeCube();
+	std::chrono::high_resolution_clock::time_point end = std::chrono::high_resolution_clock::now();
 	cube = solver.getCube();
 
-	std::cout << "Current Solution cube" << "\n";
+	std::chrono::duration<double, std::milli> duration = end - start;
+
+	std::cout << "Current Solution cube took " << duration.count() << "ms" << "\n";
 	printCube(cube);
 }
 
