@@ -623,8 +623,10 @@ void CornersFirstSolver::solveRedges() {
 				//end M'
 				cubeToSolve.doUPrime(1);
 				cubeToSolve.rotateCubeUp(1);
+				cubeToSolve.doL(1);
 			}
 			cubeToSolve.rotateCubeUp(1);
+			cubeToSolve.doL(1);
 		}
 		cubeToSolve.rotateCubeUp(1); 
 		cubeToSolve.doL(1);
@@ -713,6 +715,23 @@ void CornersFirstSolver::solveLastLedge() {
 		cubeToSolve.doRPrime(1);
 		cubeToSolve.rotateCubeUp(1);
 		//end M'
+	}
+
+	if (cubeToSolve.leftSide.getPos(0, 1) != cubeToSolve.leftSide.getPos(1, 1)) {
+		cubeToSolve.doUPrime(1);
+		//M
+		cubeToSolve.doLPrime(1);
+		cubeToSolve.doR(1);
+		cubeToSolve.rotateCubeUp(3);
+		//end M
+		cubeToSolve.doU(2);
+		//M
+		cubeToSolve.doLPrime(1);
+		cubeToSolve.doR(1);
+		cubeToSolve.rotateCubeUp(3);
+		//end M
+		cubeToSolve.doUPrime(1);
+		solveLastLedge();
 	}
 }
 
