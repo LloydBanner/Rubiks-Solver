@@ -77,6 +77,7 @@ void RubiksCube::rotateCubeUp(int num) {
 
 void RubiksCube::doR(int num) {
 	for (int n = 0; n < num; n++) {
+		//Copying 3x3x1 sections on to the correct face and right positions
 		for (int i = 0; i < height; i++) {
 			temp.setPos(i, width - 1, front.getPos(i, width - 1));
 			front.setPos(i, width - 1, bottom.getPos(i, width - 1));
@@ -84,6 +85,7 @@ void RubiksCube::doR(int num) {
 			back.setPos(height - 1 - i, 0, top.getPos(i, width - 1));
 			top.setPos(i, width - 1, temp.getPos(i, width - 1));
 		}
+		//Roating right side face
 		for (int i = 0; i < height; i++) {
 			for (int j = 0; j < width; j++) {
 				temp.setPos(j, width - 1 - i, rightSide.getPos(i, j));
@@ -91,6 +93,7 @@ void RubiksCube::doR(int num) {
 		}
 		rightSide.setFace(temp.getFace());
 
+		//Counting and listing moves
 		moves.append("R, ");
 		numMoves += 1;
 	}

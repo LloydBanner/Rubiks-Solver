@@ -1,0 +1,20 @@
+#pragma once
+
+#include <string>;
+#include "RubiksCube.h"
+#include "Face.h"
+
+class RouxMethodSolver
+{
+public:
+	RubiksCube cubeToSolve;
+	std::string sequence;
+
+	RouxMethodSolver();
+	void solveBottomLeft();
+	bool isSolutionValid();
+	void setCube(RubiksCube cube);
+	RubiksCube getCube();
+	~RouxMethodSolver();
+};
+

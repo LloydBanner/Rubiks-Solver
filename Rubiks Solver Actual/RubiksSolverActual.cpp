@@ -9,6 +9,7 @@
 #include "Scrambler.h"
 #include "BeginnersMethodSolver.h"
 #include "CornersFirstSolver.h"
+#include "RouxMethodSolver.h"
 
 void printCube(RubiksCube cube) {
 	std::cout << "front" << "\n";
@@ -190,8 +191,39 @@ void testBeginnersCornersFirstMethod() {
 void testCornersFirst() {
 	
 	//testBeginnersMethod();
+	//testBeginnersCornersFirstMethod();
 
-	testBeginnersCornersFirstMethod();
+
+	RubiksCube cube;
+	Scrambler scrambler;
+
+	std::cout << "initial cube" << "\n";
+	printCube(cube);
+
+	std::cout << "\n";
+	scrambler.setCube(cube);
+	scrambler.scramble(20);
+	std::string sequence = scrambler.getSequence();
+	std::cout << sequence;
+	std::cout << "\n";
+	std::cout << "\n";
+
+	cube = scrambler.getCube();
+
+
+	std::cout << "Scrambled cube" << "\n";
+	printCube(cube);
+
+	RouxMethodSolver solver;
+	cube.resetMoves();
+	solver.setCube(cube);
+	std::chrono::high_resolution_clock::time_point start = std::chrono::high_resolution_clock::now();
+	solver.setCube(cube);
+	solver.solveBottomLeft();
+	std::cout << "Current Solution" << "\n";
+	printCube(solver.getCube());
+	std::chrono::high_resolution_clock::time_point end = std::chrono::high_resolution_clock::now();
+
 }
 
 int main() {
