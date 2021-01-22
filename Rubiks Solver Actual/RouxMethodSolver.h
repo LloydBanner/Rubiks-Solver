@@ -12,6 +12,7 @@ public:
 
 	RouxMethodSolver();
 	void solveBottomLeft();
+	void solveBottomRight();
 	bool isSolutionValid();
 	void setCube(RubiksCube cube);
 	RubiksCube getCube();

@@ -220,6 +220,7 @@ void testCornersFirst() {
 	std::chrono::high_resolution_clock::time_point start = std::chrono::high_resolution_clock::now();
 	solver.setCube(cube);
 	solver.solveBottomLeft();
+	solver.solveBottomRight();
 	std::cout << "Current Solution" << "\n";
 	printCube(solver.getCube());
 	std::chrono::high_resolution_clock::time_point end = std::chrono::high_resolution_clock::now();
