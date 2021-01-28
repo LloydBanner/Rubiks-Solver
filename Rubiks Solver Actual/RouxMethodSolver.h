@@ -15,6 +15,7 @@ public:
 	void solveBottomRight();
 	bool isSolutionValid();
 	void setCube(RubiksCube cube);
+	void solveTopCorners();
 	RubiksCube getCube();
 	~RouxMethodSolver();
 };

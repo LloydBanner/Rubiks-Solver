@@ -1070,6 +1070,453 @@ void RouxMethodSolver::setCube(RubiksCube cube) {
 	cubeToSolve = cube;
 }
 
+void RouxMethodSolver::solveTopCorners() {
+	bool cornersInCorrectLocations = false;
+	bool moveOneJustDone = false;
+	bool moveTwoJustDone = false;
+	bool moveThreeJustDone = false;
+	bool moveFourJustDone = false;
+	int count = 0;
+	int resets = 0;
+	while (!cornersInCorrectLocations) {
+		bool frontRightCorrect = false;
+		bool frontLeftCorrect = false;
+		bool backLeftCorrect = false;
+		bool backRightCorrect = false;
+		for (int i = 0; i < 4; i++) {
+			bool correct = false;
+			if (cubeToSolve.front.getPos(2, 0) == cubeToSolve.front.getPos(0, 2) || cubeToSolve.front.getPos(2, 0) == cubeToSolve.top.getPos(2, 2) || cubeToSolve.front.getPos(2, 0) == cubeToSolve.rightSide.getPos(0, 0)) {
+				if (cubeToSolve.rightSide.getPos(2, 0) == cubeToSolve.front.getPos(0, 2) || cubeToSolve.rightSide.getPos(2, 0) == cubeToSolve.top.getPos(2, 2) || cubeToSolve.rightSide.getPos(2, 0) == cubeToSolve.rightSide.getPos(0, 0)) {
+					correct = true;
+				}
+			}
+			if (correct) {
+				switch (i) {
+				case 0:
+					frontRightCorrect = true;
+					break;
+				case 1:
+					frontLeftCorrect = true;
+					break;
+				case 2:
+					backLeftCorrect = true;
+					break;
+				case 3:
+					backRightCorrect = true;
+					break;
+				}
+			}
+
+			cubeToSolve.rotateCubeRight(1);
+		}
+
+		if (!frontRightCorrect && !backRightCorrect && !moveFourJustDone) {
+			cubeToSolve.doUPrime(1);
+			cubeToSolve.doRPrime(1);
+			cubeToSolve.doU(1);
+			cubeToSolve.doLPrime(1);
+			cubeToSolve.doU(2);
+			cubeToSolve.doR(1);
+			cubeToSolve.doUPrime(1);
+			cubeToSolve.doRPrime(1);
+			cubeToSolve.doU(2);
+			cubeToSolve.doR(2);
+			cubeToSolve.rotateCubeUp(3);
+			moveFourJustDone = true;
+			moveOneJustDone = false;
+			moveTwoJustDone = false;
+			moveThreeJustDone = false;
+			count = 0;
+			for (int i = 0; i < 4; i++) {
+				bool correct = false;
+				if (cubeToSolve.front.getPos(2, 0) == cubeToSolve.front.getPos(0, 2) || cubeToSolve.front.getPos(2, 0) == cubeToSolve.top.getPos(2, 2) || cubeToSolve.front.getPos(2, 0) == cubeToSolve.rightSide.getPos(0, 0)) {
+					if (cubeToSolve.rightSide.getPos(2, 0) == cubeToSolve.front.getPos(0, 2) || cubeToSolve.rightSide.getPos(2, 0) == cubeToSolve.top.getPos(2, 2) || cubeToSolve.rightSide.getPos(2, 0) == cubeToSolve.rightSide.getPos(0, 0)) {
+						correct = true;
+					}
+				}
+				if (correct) {
+					switch (i) {
+					case 0:
+						frontRightCorrect = true;
+						break;
+					case 1:
+						frontLeftCorrect = true;
+						break;
+					case 2:
+						backLeftCorrect = true;
+						break;
+					case 3:
+						backRightCorrect = true;
+						break;
+					}
+				}
+
+				cubeToSolve.rotateCubeRight(1);
+			}
+		}
+		if (!backRightCorrect && !backLeftCorrect && !moveOneJustDone) {
+			cubeToSolve.doRPrime(1);
+			cubeToSolve.doU(1);
+			cubeToSolve.doLPrime(1);
+			cubeToSolve.doU(2);
+			cubeToSolve.doR(1);
+			cubeToSolve.doUPrime(1);
+			cubeToSolve.doRPrime(1);
+			cubeToSolve.doU(2);
+			cubeToSolve.doR(2);
+			cubeToSolve.rotateCubeUp(3);
+			cubeToSolve.doUPrime(1);
+			moveOneJustDone = true;
+			moveFourJustDone = false;
+			moveTwoJustDone = false;
+			moveThreeJustDone = false;
+			count = 0;
+			for (int i = 0; i < 4; i++) {
+				bool correct = false;
+				if (cubeToSolve.front.getPos(2, 0) == cubeToSolve.front.getPos(0, 2) || cubeToSolve.front.getPos(2, 0) == cubeToSolve.top.getPos(2, 2) || cubeToSolve.front.getPos(2, 0) == cubeToSolve.rightSide.getPos(0, 0)) {
+					if (cubeToSolve.rightSide.getPos(2, 0) == cubeToSolve.front.getPos(0, 2) || cubeToSolve.rightSide.getPos(2, 0) == cubeToSolve.top.getPos(2, 2) || cubeToSolve.rightSide.getPos(2, 0) == cubeToSolve.rightSide.getPos(0, 0)) {
+						correct = true;
+					}
+				}
+				if (correct) {
+					switch (i) {
+					case 0:
+						frontRightCorrect = true;
+						break;
+					case 1:
+						frontLeftCorrect = true;
+						break;
+					case 2:
+						backLeftCorrect = true;
+						break;
+					case 3:
+						backRightCorrect = true;
+						break;
+					}
+				}
+
+				cubeToSolve.rotateCubeRight(1);
+			}
+		} 
+		if (!backLeftCorrect && !frontLeftCorrect && !moveTwoJustDone) {
+			cubeToSolve.doU(1);
+			cubeToSolve.doRPrime(1);
+			cubeToSolve.doU(1);
+			cubeToSolve.doLPrime(1);
+			cubeToSolve.doU(2);
+			cubeToSolve.doR(1);
+			cubeToSolve.doUPrime(1);
+			cubeToSolve.doRPrime(1);
+			cubeToSolve.doU(2);
+			cubeToSolve.doR(2);
+			cubeToSolve.rotateCubeUp(3);
+			cubeToSolve.doUPrime(2);
+			moveTwoJustDone = true;
+			moveOneJustDone = false;
+			moveFourJustDone = false;
+			moveThreeJustDone = false;
+			count = 0;
+			for (int i = 0; i < 4; i++) {
+				bool correct = false;
+				if (cubeToSolve.front.getPos(2, 0) == cubeToSolve.front.getPos(0, 2) || cubeToSolve.front.getPos(2, 0) == cubeToSolve.top.getPos(2, 2) || cubeToSolve.front.getPos(2, 0) == cubeToSolve.rightSide.getPos(0, 0)) {
+					if (cubeToSolve.rightSide.getPos(2, 0) == cubeToSolve.front.getPos(0, 2) || cubeToSolve.rightSide.getPos(2, 0) == cubeToSolve.top.getPos(2, 2) || cubeToSolve.rightSide.getPos(2, 0) == cubeToSolve.rightSide.getPos(0, 0)) {
+						correct = true;
+					}
+				}
+				if (correct) {
+					switch (i) {
+					case 0:
+						frontRightCorrect = true;
+						break;
+					case 1:
+						frontLeftCorrect = true;
+						break;
+					case 2:
+						backLeftCorrect = true;
+						break;
+					case 3:
+						backRightCorrect = true;
+						break;
+					}
+				}
+
+				cubeToSolve.rotateCubeRight(1);
+			}
+		}
+		if (!frontLeftCorrect && !frontRightCorrect && !moveThreeJustDone) {
+			cubeToSolve.doU(2);
+			cubeToSolve.doRPrime(1);
+			cubeToSolve.doU(1);
+			cubeToSolve.doLPrime(1);
+			cubeToSolve.doU(2);
+			cubeToSolve.doR(1);
+			cubeToSolve.doUPrime(1);
+			cubeToSolve.doRPrime(1);
+			cubeToSolve.doU(2);
+			cubeToSolve.doR(2);
+			cubeToSolve.rotateCubeUp(3);
+			cubeToSolve.doU(1);
+			moveThreeJustDone = true;
+			moveOneJustDone = false;
+			moveTwoJustDone = false;
+			moveFourJustDone = false;
+			count = 0;
+			for (int i = 0; i < 4; i++) {
+				bool correct = false;
+				if (cubeToSolve.front.getPos(2, 0) == cubeToSolve.front.getPos(0, 2) || cubeToSolve.front.getPos(2, 0) == cubeToSolve.top.getPos(2, 2) || cubeToSolve.front.getPos(2, 0) == cubeToSolve.rightSide.getPos(0, 0)) {
+					if (cubeToSolve.rightSide.getPos(2, 0) == cubeToSolve.front.getPos(0, 2) || cubeToSolve.rightSide.getPos(2, 0) == cubeToSolve.top.getPos(2, 2) || cubeToSolve.rightSide.getPos(2, 0) == cubeToSolve.rightSide.getPos(0, 0)) {
+						correct = true;
+					}
+				}
+				if (correct) {
+					switch (i) {
+					case 0:
+						frontRightCorrect = true;
+						break;
+					case 1:
+						frontLeftCorrect = true;
+						break;
+					case 2:
+						backLeftCorrect = true;
+						break;
+					case 3:
+						backRightCorrect = true;
+						break;
+					}
+				}
+
+				cubeToSolve.rotateCubeRight(1);
+			}
+		}
+
+		if (count == 2 && resets == 0) {
+			resets++;
+			count = 0;
+			cubeToSolve.doUPrime(1);
+			cubeToSolve.doRPrime(1);
+			cubeToSolve.doU(1);
+			cubeToSolve.doLPrime(1);
+			cubeToSolve.doU(2);
+			cubeToSolve.doR(1);
+			cubeToSolve.doUPrime(1);
+			cubeToSolve.doRPrime(1);
+			cubeToSolve.doU(2);
+			cubeToSolve.doR(2);
+			cubeToSolve.rotateCubeUp(3);
+		}
+		else if (count == 2 && resets == 1) {
+			resets++;
+			count = 0;
+			cubeToSolve.doU(2);
+			cubeToSolve.doRPrime(1);
+			cubeToSolve.doU(1);
+			cubeToSolve.doLPrime(1);
+			cubeToSolve.doU(2);
+			cubeToSolve.doR(1);
+			cubeToSolve.doUPrime(1);
+			cubeToSolve.doRPrime(1);
+			cubeToSolve.doU(2);
+			cubeToSolve.doR(2);
+			cubeToSolve.rotateCubeUp(3);
+			cubeToSolve.doU(1);
+		}
+		else if (count == 2 && resets == 2) {
+			resets++;
+			count = 0;
+			cubeToSolve.doU(1);
+			cubeToSolve.doRPrime(1);
+			cubeToSolve.doU(1);
+			cubeToSolve.doLPrime(1);
+			cubeToSolve.doU(2);
+			cubeToSolve.doR(1);
+			cubeToSolve.doUPrime(1);
+			cubeToSolve.doRPrime(1);
+			cubeToSolve.doU(2);
+			cubeToSolve.doR(2);
+			cubeToSolve.rotateCubeUp(3);
+			cubeToSolve.doUPrime(2);
+		}
+		else if (count == 2 && resets == 3) {
+			resets = 0;
+			count = 0;
+			cubeToSolve.doRPrime(1);
+			cubeToSolve.doU(1);
+			cubeToSolve.doLPrime(1);
+			cubeToSolve.doU(2);
+			cubeToSolve.doR(1);
+			cubeToSolve.doUPrime(1);
+			cubeToSolve.doRPrime(1);
+			cubeToSolve.doU(2);
+			cubeToSolve.doR(2);
+			cubeToSolve.rotateCubeUp(3);
+			cubeToSolve.doUPrime(1);
+		}
+		count++;
+
+		if (frontRightCorrect && backRightCorrect && backLeftCorrect && frontLeftCorrect) {
+			cornersInCorrectLocations = true;
+		}
+	}
+
+
+	bool middleOrientated = false;
+	while (!middleOrientated) {
+		//M
+		cubeToSolve.doLPrime(1);
+		cubeToSolve.doR(1);
+		cubeToSolve.rotateCubeUp(3);
+		//end M
+
+		if (cubeToSolve.bottom.getPos(1, 1) == cubeToSolve.bottom.getPos(0, 0)) {
+			middleOrientated = true;
+		}
+	}
+
+	bool cornersSolved = false;
+	char colourTop = cubeToSolve.top.getPos(1, 1);
+	count = 0;
+	while (!cornersSolved) {
+		if (colourTop == cubeToSolve.top.getPos(2, 0) && colourTop == cubeToSolve.top.getPos(2, 2) && colourTop == cubeToSolve.back.getPos(0, 0) && colourTop == cubeToSolve.back.getPos(0, 2)) {
+			//E
+			cubeToSolve.doR(2);
+			cubeToSolve.doFPrime(1);
+			cubeToSolve.doU(1);
+			cubeToSolve.doF(1);
+			cubeToSolve.doUPrime(1);
+			cubeToSolve.doFPrime(1);
+			cubeToSolve.doUPrime(1);
+			cubeToSolve.doF(2);
+			cubeToSolve.doR(1);
+			cubeToSolve.doFPrime(1);
+			cubeToSolve.doR(1);
+			cubeToSolve.doU(1);
+		}
+		else if (colourTop == cubeToSolve.top.getPos(2, 0) && colourTop == cubeToSolve.top.getPos(2, 2) && colourTop == cubeToSolve.leftSide.getPos(0, 0) && colourTop == cubeToSolve.rightSide.getPos(0, 2)) {
+			//F
+			cubeToSolve.doR(2);
+			cubeToSolve.doFPrime(1);
+			cubeToSolve.doU(1);
+			cubeToSolve.doF(1);
+			cubeToSolve.doUPrime(1);
+			cubeToSolve.doFPrime(1);
+			cubeToSolve.doUPrime(1);
+			cubeToSolve.doF(2);
+			cubeToSolve.doR(1);
+			cubeToSolve.doFPrime(1);
+			cubeToSolve.doR(1);
+			cubeToSolve.doU(1);
+			cubeToSolve.doR(2);
+			cubeToSolve.doFPrime(1);
+			cubeToSolve.doU(1);
+			cubeToSolve.doF(1);
+			cubeToSolve.doUPrime(1);
+			cubeToSolve.doFPrime(1);
+			cubeToSolve.doUPrime(1);
+			cubeToSolve.doF(2);
+			cubeToSolve.doR(1);
+			cubeToSolve.doFPrime(1);
+			cubeToSolve.doR(1);
+			cubeToSolve.doU(1);
+		}
+		else if (colourTop == cubeToSolve.top.getPos(0, 0) && colourTop == cubeToSolve.front.getPos(0, 0) && colourTop == cubeToSolve.rightSide.getPos(0, 0) && colourTop == cubeToSolve.back.getPos(0, 0)) {
+			//B
+			cubeToSolve.doRPrime(1);
+			cubeToSolve.doUPrime(1);
+			cubeToSolve.doR(1);
+			cubeToSolve.doUPrime(1);
+			cubeToSolve.doRPrime(1);
+			cubeToSolve.doU(2);
+			cubeToSolve.doR(1);
+			cubeToSolve.doU(2);
+		}
+		else if (colourTop == cubeToSolve.top.getPos(2, 0) && colourTop == cubeToSolve.rightSide.getPos(0, 2) && colourTop == cubeToSolve.front.getPos(0, 2) && colourTop == cubeToSolve.back.getPos(0, 2)) {
+			//C
+			cubeToSolve.doR(1);
+			cubeToSolve.doU(1);
+			cubeToSolve.doRPrime(1);
+			cubeToSolve.doU(1);
+			cubeToSolve.doR(1);
+			cubeToSolve.doU(2);
+			cubeToSolve.doRPrime(1);
+			cubeToSolve.doU(2);
+		}
+		else if (colourTop == cubeToSolve.top.getPos(2, 0) && colourTop == cubeToSolve.top.getPos(0, 2) && colourTop == cubeToSolve.front.getPos(0, 2) && colourTop == cubeToSolve.leftSide.getPos(0, 0)) {
+			//D 
+			cubeToSolve.doRPrime(1);
+			cubeToSolve.doD(1);
+			cubeToSolve.doRPrime(1);
+			cubeToSolve.doD(1);
+			cubeToSolve.doRPrime(1);
+			cubeToSolve.doU(1);
+			cubeToSolve.doR(1);
+			cubeToSolve.doDPrime(1);
+			cubeToSolve.doR(1);
+			cubeToSolve.doDPrime(1);
+			cubeToSolve.doR(1);
+			cubeToSolve.doUPrime(1);
+		}
+		else if (colourTop == cubeToSolve.rightSide.getPos(0, 0) && colourTop == cubeToSolve.rightSide.getPos(0, 2) && colourTop == cubeToSolve.leftSide.getPos(0, 0) && colourTop == cubeToSolve.leftSide.getPos(0, 2)) {
+			//H Alt
+			cubeToSolve.doU(1);
+			cubeToSolve.doRPrime(1);
+			cubeToSolve.doF(1);
+			cubeToSolve.doR(1);
+			cubeToSolve.doU(1);
+			cubeToSolve.doRPrime(1);
+			cubeToSolve.doF(1);
+			cubeToSolve.doR(1);
+			cubeToSolve.doUPrime(1);
+			cubeToSolve.doRPrime(1);
+			cubeToSolve.doFPrime(1);
+			cubeToSolve.doR(1);
+		}
+		else if (colourTop == cubeToSolve.front.getPos(0, 2) && colourTop == cubeToSolve.leftSide.getPos(0, 0) && colourTop == cubeToSolve.leftSide.getPos(0, 2) && colourTop == cubeToSolve.back.getPos(0, 0)) {
+			//G
+			cubeToSolve.doF(1);
+			cubeToSolve.doR(1);
+			cubeToSolve.doU(1);
+			cubeToSolve.doRPrime(1);
+			cubeToSolve.doUPrime(1);
+			cubeToSolve.doR(1);
+			cubeToSolve.doU(1);
+			cubeToSolve.doRPrime(1);
+			cubeToSolve.doUPrime(1);
+			cubeToSolve.doFPrime(1);
+		}
+		cubeToSolve.doU(1);
+
+		bool backRightCorrect = false;
+		bool backLeftCorrect = false;
+		bool frontRightCorrect = false;
+		bool frontLeftCorrect = false;
+		if (colourTop == cubeToSolve.top.getPos(0, 0)) {
+			backLeftCorrect = true;
+		}
+		if (colourTop == cubeToSolve.top.getPos(0, 2)) {
+			backRightCorrect = true;
+		}
+		if (colourTop == cubeToSolve.top.getPos(2, 0)) {
+			frontLeftCorrect = true;
+		}
+		if (colourTop == cubeToSolve.top.getPos(2, 2)) {
+			frontRightCorrect = true;
+		}
+
+		if (frontLeftCorrect&& frontRightCorrect && backLeftCorrect && backRightCorrect) {
+			cornersSolved = true;
+		}
+	}
+
+	bool topOrientated = false;
+	while (!topOrientated) {
+		cubeToSolve.doU(1);
+
+		if (cubeToSolve.rightSide.getPos(0, 0) == cubeToSolve.rightSide.getPos(1, 1)) {
+			topOrientated = true;
+		}
+	}
+}
+
 RubiksCube RouxMethodSolver::getCube() {
 	return cubeToSolve;
 }
