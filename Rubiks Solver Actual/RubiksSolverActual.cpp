@@ -160,9 +160,7 @@ void testBeginnersCornersFirstMethod() {
 		solver.solveThreeLedges();
 		solver.solveRedges();
 		solver.solveLastLedge();
-		printCube(solver.getCube());
 		solver.flipMidges();
-		printCube(solver.getCube());
 		solver.completeCube();
 		std::chrono::high_resolution_clock::time_point end = std::chrono::high_resolution_clock::now();
 
@@ -188,54 +186,74 @@ void testBeginnersCornersFirstMethod() {
 	std::cout << "Average time to solve was " << averageDuration << "ms" << "\n";
 }
 
-void testCornersFirst() {
-	
-	//testBeginnersMethod();
-	//testBeginnersCornersFirstMethod();
+void testRoux() {
+	int numberValid = 0;
+	int totalMoves = 0;
+	float totalDuration = 0;
+	int numberToTest = 1000;
+
+	for (int i = 0; i < numberToTest; i++) {
+		RubiksCube cube;
+		Scrambler scrambler;
+
+		std::cout << "initial cube" << "\n";
+		printCube(cube);
+
+		std::cout << "\n";
+		scrambler.setCube(cube);
+		scrambler.scramble(20);
+		std::string sequence = scrambler.getSequence();
+		std::cout << sequence;
+		std::cout << "\n";
+		std::cout << "\n";
+
+		cube = scrambler.getCube();
 
 
-	RubiksCube cube;
-	Scrambler scrambler;
+		std::cout << "Scrambled cube" << "\n";
+		printCube(cube);
 
-	std::cout << "initial cube" << "\n";
-	printCube(cube);
+		RouxMethodSolver solver;
+		cube.resetMoves();
+		solver.setCube(cube);
+		std::chrono::high_resolution_clock::time_point start = std::chrono::high_resolution_clock::now();
+		solver.solveBottomLeft();
+		solver.solveBottomRight();
+		solver.solveTopCorners();
+		solver.solveTopCorners();
+		solver.solveLastRedgeandLedge();
+		solver.flipMidges();
+		solver.completeCube();
+		std::chrono::high_resolution_clock::time_point end = std::chrono::high_resolution_clock::now();
 
-	std::cout << "\n";
-	scrambler.setCube(cube);
-	scrambler.scramble(20);
-	std::string sequence = scrambler.getSequence();
-	std::cout << sequence;
-	std::cout << "\n";
-	std::cout << "\n";
+		if (solver.isSolutionValid()) {
+			numberValid += 1;
+		}
+		cube = solver.getCube();
+		//std::cout << "Solved in " << cube.getNumMoves() << " moves" << "\n";
+		//std::cout << cube.getMoves() << "\n";
 
-	cube = scrambler.getCube();
+		std::chrono::duration<double, std::milli> duration = end - start;
 
+		std::cout << "Final cube: took " << duration.count() << "ms to solve" << "\n";
+		printCube(cube);
 
-	std::cout << "Scrambled cube" << "\n";
-	printCube(cube);
+		totalMoves += cube.getNumMoves();
+		totalDuration += duration.count();
+	}
 
-	RouxMethodSolver solver;
-	cube.resetMoves();
-	solver.setCube(cube);
-	std::chrono::high_resolution_clock::time_point start = std::chrono::high_resolution_clock::now();
-	solver.setCube(cube);
-	solver.solveBottomLeft();
-	solver.solveBottomRight();
-	solver.solveTopCorners();
-	solver.solveTopCorners();
-	solver.solveLastRedgeandLedge();
-	solver.flipMidges();
-	solver.completeCube();
-	std::cout << "Current Solution" << "\n";
-	printCube(solver.getCube());
-	std::chrono::high_resolution_clock::time_point end = std::chrono::high_resolution_clock::now();
-
+	float averageDuration = totalDuration / numberToTest;
+	std::cout << "Out of " << numberToTest << " there were " << numberValid << " valid cubes" << "\n";
+	std::cout << "Average number of moves was " << totalMoves / numberToTest << "\n";
+	std::cout << "Average time to solve was " << averageDuration << "ms" << "\n";
 }
 
 int main() {
 	std::cout << "Hello World! \n";
 
-	testCornersFirst();
+	//testBeginnersMethod();
+	//testBeginnersCornersFirstMethod();
+	testRoux();
 
     return 0;
 }
