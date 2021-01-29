@@ -13,9 +13,12 @@ public:
 	RouxMethodSolver();
 	void solveBottomLeft();
 	void solveBottomRight();
+	void solveTopCorners();
+	void solveLastRedgeandLedge();
+	void flipMidges();
+	void completeCube();
 	bool isSolutionValid();
 	void setCube(RubiksCube cube);
-	void solveTopCorners();
 	RubiksCube getCube();
 	~RouxMethodSolver();
 };

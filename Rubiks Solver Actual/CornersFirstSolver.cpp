@@ -675,7 +675,6 @@ void CornersFirstSolver::solveRedges() {
 
 void CornersFirstSolver::solveLastLedge() {
 	//last left edge
-
 	for (int i = 0; i < 4; i++) {
 		if (cubeToSolve.leftSide.getPos(0, 0) == cubeToSolve.leftSide.getPos(0, 1)) {
 			break;

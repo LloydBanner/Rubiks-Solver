@@ -223,6 +223,9 @@ void testCornersFirst() {
 	solver.solveBottomRight();
 	solver.solveTopCorners();
 	solver.solveTopCorners();
+	solver.solveLastRedgeandLedge();
+	solver.flipMidges();
+	solver.completeCube();
 	std::cout << "Current Solution" << "\n";
 	printCube(solver.getCube());
 	std::chrono::high_resolution_clock::time_point end = std::chrono::high_resolution_clock::now();
