@@ -4,6 +4,8 @@
 #include "stdafx.h"
 #include <iostream>
 #include <chrono>
+#include <fstream>
+#include <Windows.h> // for sleep
 
 #include "RubiksCube.h"
 #include "Scrambler.h"
@@ -68,6 +70,10 @@ void testBeginnersMethod() {
 	float totalDuration = 0;
 	int numberToTest = 1000;
 
+	std::fstream fout;
+	fout.open("Beginner.csv", std::ios::out);
+	fout << "Cube Number" << "," << "Solve Time (ms)" << "," << "Number of Moves" << "\n";
+
 	for (int i = 0; i < numberToTest; i++) {
 		RubiksCube cube;
 		Scrambler scrambler;
@@ -113,9 +119,14 @@ void testBeginnersMethod() {
 		std::cout << "Final cube: took " << duration.count() << "ms to solve" << "\n";
 		printCube(cube);
 
+		fout << i << "," << duration.count() << "," << cube.getNumMoves() << "\n";
 		totalMoves += cube.getNumMoves();
 		totalDuration += duration.count();
+
+		Sleep(1000); //Delay to allow for random cube seed change
 	}
+
+	fout.close();
 
 	float averageDuration = totalDuration / numberToTest;
 	std::cout << "Out of " << numberToTest << " there were " << numberValid << " valid cubes" << "\n";
@@ -128,6 +139,10 @@ void testBeginnersCornersFirstMethod() {
 	int totalMoves = 0;
 	float totalDuration = 0;
 	int numberToTest = 1000;
+
+	std::fstream fout;
+	fout.open("Corners.csv", std::ios::out);
+	fout << "Cube Number" << "," << "Solve Time (ms)" << "," << "Number of Moves" << "\n";
 
 	for (int i = 0; i < numberToTest; i++) {
 		RubiksCube cube;
@@ -176,9 +191,15 @@ void testBeginnersCornersFirstMethod() {
 		std::cout << "Final cube: took " << duration.count() << "ms to solve" << "\n";
 		printCube(cube);
 
+		fout << i << "," << duration.count() << "," << cube.getNumMoves() << "\n";
+
 		totalMoves += cube.getNumMoves();
 		totalDuration += duration.count();
+
+		Sleep(1000); //Delay to allow for random cube seed change
 	}
+
+	fout.close();
 
 	float averageDuration = totalDuration / numberToTest;
 	std::cout << "Out of " << numberToTest << " there were " << numberValid << " valid cubes" << "\n";
@@ -191,6 +212,10 @@ void testRoux() {
 	int totalMoves = 0;
 	float totalDuration = 0;
 	int numberToTest = 1000;
+
+	std::fstream fout;
+	fout.open("Roux.csv", std::ios::out);
+	fout << "Cube Number" << "," << "Solve Time (ms)" << "," << "Number of Moves" << "\n";
 
 	for (int i = 0; i < numberToTest; i++) {
 		RubiksCube cube;
@@ -238,9 +263,15 @@ void testRoux() {
 		std::cout << "Final cube: took " << duration.count() << "ms to solve" << "\n";
 		printCube(cube);
 
+		fout << i << "," << duration.count() << "," << cube.getNumMoves() << "\n";
+
 		totalMoves += cube.getNumMoves();
 		totalDuration += duration.count();
+
+		Sleep(1000); //Delay to allow for random cube seed change
 	}
+
+	fout.close();
 
 	float averageDuration = totalDuration / numberToTest;
 	std::cout << "Out of " << numberToTest << " there were " << numberValid << " valid cubes" << "\n";
@@ -251,9 +282,9 @@ void testRoux() {
 int main() {
 	std::cout << "Hello World! \n";
 
-	//testBeginnersMethod();
+	testBeginnersMethod();
 	//testBeginnersCornersFirstMethod();
-	testRoux();
+	//testRoux();
 
     return 0;
 }
