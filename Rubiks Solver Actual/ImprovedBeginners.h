@@ -4,12 +4,12 @@
 #include "RubiksCube.h"
 #include "Face.h"
 
-class BeginnersMethodSolver {
+class ImprovedBeginners {
 public:
 	RubiksCube cubeToSolve;
 	std::string sequence;
 
-	BeginnersMethodSolver();
+	ImprovedBeginners();
 	void solveCross();
 	void solverTopCorners();
 	void solveMiddleLayer();
@@ -19,6 +19,6 @@ public:
 	bool isSolutionValid();
 	void setCube(RubiksCube cube);
 	RubiksCube getCube();
-	~BeginnersMethodSolver();
+	~ImprovedBeginners();
 };
 

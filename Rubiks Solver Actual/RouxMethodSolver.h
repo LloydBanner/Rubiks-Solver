@@ -4,8 +4,7 @@
 #include "RubiksCube.h"
 #include "Face.h"
 
-class RouxMethodSolver
-{
+class RouxMethodSolver {
 public:
 	RubiksCube cubeToSolve;
 	std::string sequence;

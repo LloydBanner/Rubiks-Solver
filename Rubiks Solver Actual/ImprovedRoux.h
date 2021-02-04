@@ -4,23 +4,20 @@
 #include "RubiksCube.h"
 #include "Face.h"
 
-class CornersFirstSolver {
+class ImprovedRoux {
 public:
 	RubiksCube cubeToSolve;
 	std::string sequence;
 
-	CornersFirstSolver();
-
-	void solveBottomCorners();
+	ImprovedRoux();
+	void solveBottomLeft();
+	void solveBottomRight();
 	void solveTopCorners();
-	void solveThreeLedges();
-	void solveRedges();
-	void solveLastLedge();
+	void solveLastRedgeandLedge();
 	void flipMidges();
 	void completeCube();
 	bool isSolutionValid();
 	void setCube(RubiksCube cube);
 	RubiksCube getCube();
-	~CornersFirstSolver();
+	~ImprovedRoux();
 };
-

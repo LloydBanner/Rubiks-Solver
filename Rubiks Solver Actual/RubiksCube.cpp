@@ -43,6 +43,30 @@ void RubiksCube::rotateCubeRight(int num) {
 	}
 }
 
+void RubiksCube::rotateCubeLeft(int num) {
+	for (int n = 0; n < num; n++) {
+		temp.setFace(front.getFace());
+		front.setFace(rightSide.getFace());
+		rightSide.setFace(back.getFace());
+		back.setFace(leftSide.getFace());
+		leftSide.setFace(temp.getFace());
+		for (int i = 0; i < height; i++) {
+			for (int j = 0; j < width; j++) {
+				temp.setPos(j, width - 1 - i, top.getPos(i, j));
+			}
+		}
+		top.setFace(temp.getFace());
+		for (int i = 0; i < height; i++) {
+			for (int j = 0; j < width; j++) {
+				temp.setPos(height - 1 - j, i, bottom.getPos(i, j));
+			}
+		}
+		bottom.setFace(temp.getFace());
+
+		moves.append("rotate left, ");
+	}
+}
+
 void RubiksCube::rotateCubeUp(int num) {
 	for (int n = 0; n < num; n++) {
 		temp.setFace(front.getFace());
@@ -72,6 +96,38 @@ void RubiksCube::rotateCubeUp(int num) {
 		leftSide.setFace(temp.getFace());
 
 		moves.append("rotate up, ");
+	}
+}
+
+void RubiksCube::rotateCubeDown(int num) {
+	for (int n = 0; n < num; n++) {
+		temp.setFace(front.getFace());
+		front.setFace(top.getFace());
+		for (int i = 0; i < height; i++) {
+			for (int j = 0; j < width; j++) {
+				top.setPos(i, j, back.getPos(height - 1 - i, width - 1 - j));
+			}
+		}
+		for (int i = 0; i < height; i++) {
+			for (int j = 0; j < width; j++) {
+				back.setPos(height - 1 - i, width - 1 - j, bottom.getPos(i, j));
+			}
+		}
+		bottom.setFace(temp.getFace());
+		for (int i = 0; i < height; i++) {
+			for (int j = 0; j < width; j++) {
+				temp.setPos(height - 1 - j, i, rightSide.getPos(i, j));
+			}
+		}
+		rightSide.setFace(temp.getFace());
+		for (int i = 0; i < height; i++) {
+			for (int j = 0; j < width; j++) {
+				temp.setPos(j, width - 1 - i, leftSide.getPos(i, j));
+			}
+		}
+		leftSide.setFace(temp.getFace());
+
+		moves.append("rotate down, ");
 	}
 }
 
@@ -326,6 +382,66 @@ void RubiksCube::doDPrime(int num) {
 		bottom.setFace(temp.getFace());
 
 		moves.append("D', ");
+		numMoves += 1;
+	}
+}
+
+void RubiksCube::doM(int num) {
+	for (int n = 0; n < num; n++) {
+		for (int i = 0; i < height; i++) {
+			temp.setPos(i, width - 2, front.getPos(i, width - 2));
+			front.setPos(i, width - 2, top.getPos(i, width - 2));
+			top.setPos(i, width - 2, back.getPos(height - 1 - i, width - 2));
+			back.setPos(height - 1 - i, width - 2, bottom.getPos(i, width - 2));
+			bottom.setPos(i, width - 2, temp.getPos(i, width - 2));
+		}
+
+		moves.append("M, ");
+		numMoves += 1;
+	}
+}
+
+void RubiksCube::doMPrime(int num) {
+	for (int n = 0; n < num; n++) {
+		for (int i = 0; i < height; i++) {
+			temp.setPos(i, width - 2, front.getPos(i, width - 2));
+			front.setPos(i, width - 2, bottom.getPos(i, width - 2));
+			bottom.setPos(i, width - 2, back.getPos(height - 1 - i, width - 2));
+			back.setPos(height - 1 - i, width - 2, top.getPos(i, width - 2));
+			top.setPos(i, width - 2, temp.getPos(i, width - 2));
+		}
+
+		moves.append("M', ");
+		numMoves += 1;
+	}
+}
+
+void RubiksCube::doE(int num) {
+	for (int n = 0; n < num; n++) {
+		for (int i = 0; i < height; i++) {
+			temp.setPos(height - 2, i, front.getPos(height - 2, i));
+			front.setPos(height - 2, i, leftSide.getPos(height - 2, i));
+			leftSide.setPos(height - 2, i, back.getPos(height - 2, i));
+			back.setPos(height - 2, i, rightSide.getPos(height - 2, i));
+			rightSide.setPos(height - 2, i, temp.getPos(height - 2, i));
+		}
+
+		moves.append("E, ");
+		numMoves += 1;
+	}
+}
+
+void RubiksCube::doEPrime(int num) {
+	for (int n = 0; n < num; n++) {
+		for (int i = 0; i < height; i++) {
+			temp.setPos(height - 2, i, front.getPos(height - 2, i));
+			front.setPos(height - 2, i, rightSide.getPos(height - 2, i));
+			rightSide.setPos(height - 2, i, back.getPos(height - 2, i));
+			back.setPos(height - 2, i, leftSide.getPos(height - 2, i));
+			leftSide.setPos(height - 2, i, temp.getPos(height - 2, i));
+		}
+
+		moves.append("E', ");
 		numMoves += 1;
 	}
 }

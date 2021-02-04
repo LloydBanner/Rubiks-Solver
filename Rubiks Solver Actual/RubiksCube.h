@@ -20,7 +20,9 @@ public:
 	RubiksCube();
 	~RubiksCube();
 	void rotateCubeRight(int num);
+	void rotateCubeLeft(int num);
 	void rotateCubeUp(int num);
+	void rotateCubeDown(int num);
 	void doR(int num);
 	void doRPrime(int num);
 	void doL(int num);
@@ -33,6 +35,10 @@ public:
 	void doUPrime(int num);
 	void doD(int num);
 	void doDPrime(int num);
+	void doM(int num);
+	void doMPrime(int num);
+	void doE(int num);
+	void doEPrime(int num);
 	std::string getMoves();
 	int getNumMoves();
 	void resetMoves();
