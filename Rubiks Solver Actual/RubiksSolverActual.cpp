@@ -504,8 +504,8 @@ int main() {
 	//testBeginnersCornersFirstMethod();
 	//testRoux();
 
-	testImprovedBeginnersMethod();
-	//testImprovedCornersFirstMethod();
+	//testImprovedBeginnersMethod();
+	testImprovedCornersFirstMethod();
 	//testImprovedRoux();
 
 
