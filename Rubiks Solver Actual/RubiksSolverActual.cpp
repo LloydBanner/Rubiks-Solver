@@ -500,12 +500,12 @@ void testImprovedRoux() {
 int main() {
 	std::cout << "Hello World! \n";
 
-	//testBeginnersMethod();
+	testBeginnersMethod();
 	//testBeginnersCornersFirstMethod();
 	//testRoux();
 
 	//testImprovedBeginnersMethod();
-	testImprovedCornersFirstMethod();
+	//testImprovedCornersFirstMethod();
 	//testImprovedRoux();
 
 

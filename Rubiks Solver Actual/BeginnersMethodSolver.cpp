@@ -264,36 +264,46 @@ void BeginnersMethodSolver::solveCross() {
 			if (!edge01 && !edge10 && !edge12 && !edge21) {
 				topEdgesOnBottom = false;
 			}
-		}
-
-		if (!frontEdge) {
-			if (cubeToSolve.front.getPos(1, 1) == cubeToSolve.front.getPos(0, 1)) {
-				if (colourTop == cubeToSolve.top.getPos(2, 1)) {
+		}if (!frontEdge) {
+			if (colourTop == cubeToSolve.top.getPos(2, 1)) {
+				if (cubeToSolve.front.getPos(1, 1) == cubeToSolve.front.getPos(0, 1)) {
 					frontEdge = true;
+				}
+				else {
+					cubeToSolve.doF(2);
 				}
 			}
 		}
 
 		if (!backEdge) {
-			if (cubeToSolve.back.getPos(1, 1) == cubeToSolve.back.getPos(0, 1)) {
-				if (colourTop == cubeToSolve.top.getPos(0, 1)) {
+			if (colourTop == cubeToSolve.top.getPos(0, 1)) {
+				if (cubeToSolve.back.getPos(1, 1) == cubeToSolve.back.getPos(0, 1)) {
 					backEdge = true;
+				}
+				else {
+					cubeToSolve.doB(2);
 				}
 			}
 		}
 
 		if (!rightEdge) {
-			if (cubeToSolve.rightSide.getPos(1, 1) == cubeToSolve.rightSide.getPos(0, 1)) {
-				if (colourTop == cubeToSolve.top.getPos(1, 2)) {
+			if (colourTop == cubeToSolve.top.getPos(1, 2)) {
+				if (cubeToSolve.rightSide.getPos(1, 1) == cubeToSolve.rightSide.getPos(0, 1)) {
 					rightEdge = true;
+				}
+				else {
+					cubeToSolve.doR(2);
 				}
 			}
 		}
 
 		if (!leftEdge) {
-			if (cubeToSolve.leftSide.getPos(1, 1) == cubeToSolve.leftSide.getPos(0, 1)) {
-				if (colourTop == cubeToSolve.top.getPos(1, 0)) {
+			if (colourTop == cubeToSolve.top.getPos(1, 0)) {
+				if (cubeToSolve.leftSide.getPos(1, 1) == cubeToSolve.leftSide.getPos(0, 1)) {
 					leftEdge = true;
+				}
+				else {
+					cubeToSolve.doL(2);
 				}
 			}
 		}
@@ -353,10 +363,11 @@ void BeginnersMethodSolver::solverTopCorners() {
 				}
 				else {
 					cubeToSolve.doDPrime(1);
+					cubeToSolve.rotateCubeRight(1);
 					while (cubeToSolve.top.getPos(1, 1) != cubeToSolve.top.getPos(2, 2) && count != 0) {
-						cubeToSolve.doFPrime(1);
+						cubeToSolve.doRPrime(1);
 						cubeToSolve.doDPrime(1);
-						cubeToSolve.doF(1);
+						cubeToSolve.doR(1);
 						cubeToSolve.doD(1);
 						count--;
 					}
@@ -374,10 +385,11 @@ void BeginnersMethodSolver::solverTopCorners() {
 				}
 				else {
 					cubeToSolve.doD(1);
+					cubeToSolve.rotateCubeRight(3);
 					while (cubeToSolve.top.getPos(1, 1) != cubeToSolve.top.getPos(2, 2) && count != 0) {
-						cubeToSolve.doBPrime(1);
+						cubeToSolve.doRPrime(1);
 						cubeToSolve.doDPrime(1);
-						cubeToSolve.doB(1);
+						cubeToSolve.doR(1);
 						cubeToSolve.doD(1);
 						count--;
 					}
@@ -386,20 +398,22 @@ void BeginnersMethodSolver::solverTopCorners() {
 			else if (colourToCheck1 == cubeToSolve.leftSide.getPos(1, 1)) {
 				if (colourToCheck2 == cubeToSolve.front.getPos(1, 1)) {
 					cubeToSolve.doDPrime(1);
+					cubeToSolve.rotateCubeRight(1);
 					while (cubeToSolve.top.getPos(1, 1) != cubeToSolve.top.getPos(2, 2) && count != 0) {
-						cubeToSolve.doFPrime(1);
+						cubeToSolve.doRPrime(1);
 						cubeToSolve.doDPrime(1);
-						cubeToSolve.doF(1);
+						cubeToSolve.doR(1);
 						cubeToSolve.doD(1);
 						count--;
 					}
 				}
 				else {
 					cubeToSolve.doD(2);
+					cubeToSolve.rotateCubeRight(2);
 					while (cubeToSolve.top.getPos(1, 1) != cubeToSolve.top.getPos(2, 2) && count != 0) {
-						cubeToSolve.doLPrime(1);
+						cubeToSolve.doRPrime(1);
 						cubeToSolve.doDPrime(1);
-						cubeToSolve.doL(1);
+						cubeToSolve.doR(1);
 						cubeToSolve.doD(1);
 						count--;
 					}
@@ -408,20 +422,22 @@ void BeginnersMethodSolver::solverTopCorners() {
 			else if (colourToCheck1 == cubeToSolve.back.getPos(1, 1)) {
 				if (colourToCheck2 == cubeToSolve.leftSide.getPos(1, 1)) {
 					cubeToSolve.doD(2);
+					cubeToSolve.rotateCubeRight(2);
 					while (cubeToSolve.top.getPos(1, 1) != cubeToSolve.top.getPos(2, 2) && count != 0) {
-						cubeToSolve.doLPrime(1);
+						cubeToSolve.doRPrime(1);
 						cubeToSolve.doDPrime(1);
-						cubeToSolve.doL(1);
+						cubeToSolve.doR(1);
 						cubeToSolve.doD(1);
 						count--;
 					}
 				}
 				else {
 					cubeToSolve.doD(1);
+					cubeToSolve.rotateCubeRight(3);
 					while (cubeToSolve.top.getPos(1, 1) != cubeToSolve.top.getPos(2, 2) && count != 0) {
-						cubeToSolve.doBPrime(1);
+						cubeToSolve.doRPrime(1);
 						cubeToSolve.doDPrime(1);
-						cubeToSolve.doB(1);
+						cubeToSolve.doR(1);
 						cubeToSolve.doD(1);
 						count--;
 					}
@@ -540,14 +556,50 @@ void BeginnersMethodSolver::solveMiddleLayer() {
 				fails += 1;
 				if (fails == 16) {
 					fails = 0;
-					cubeToSolve.doU(2);
-					cubeToSolve.doR(1);
-					cubeToSolve.doUPrime(1);
-					cubeToSolve.doRPrime(1);
-					cubeToSolve.doUPrime(1);
-					cubeToSolve.doFPrime(1);
-					cubeToSolve.doU(1);
-					cubeToSolve.doF(1);
+					if (cubeToSolve.front.getPos(1, 2) != cubeToSolve.front.getPos(1, 1) || cubeToSolve.rightSide.getPos(1, 0) != cubeToSolve.rightSide.getPos(1, 1)) {
+						cubeToSolve.doU(2);
+						cubeToSolve.doR(1);
+						cubeToSolve.doUPrime(1);
+						cubeToSolve.doRPrime(1);
+						cubeToSolve.doUPrime(1);
+						cubeToSolve.doFPrime(1);
+						cubeToSolve.doU(1);
+						cubeToSolve.doF(1);
+					}
+					else if (cubeToSolve.front.getPos(1, 0) != cubeToSolve.front.getPos(1, 1) || cubeToSolve.leftSide.getPos(1, 2) != cubeToSolve.leftSide.getPos(1, 1)) {
+						cubeToSolve.doUPrime(1);
+						cubeToSolve.doLPrime(1);
+						cubeToSolve.doU(1);
+						cubeToSolve.doL(1);
+						cubeToSolve.doU(1);
+						cubeToSolve.doF(1);
+						cubeToSolve.doUPrime(1);
+						cubeToSolve.doFPrime(1);
+					}
+					else if (cubeToSolve.back.getPos(1, 2) != cubeToSolve.back.getPos(1, 1) || cubeToSolve.rightSide.getPos(1, 2) != cubeToSolve.rightSide.getPos(1, 1)) {
+						cubeToSolve.rotateCubeRight(2);
+						cubeToSolve.doU(2);
+						cubeToSolve.doR(1);
+						cubeToSolve.doUPrime(1);
+						cubeToSolve.doRPrime(1);
+						cubeToSolve.doUPrime(1);
+						cubeToSolve.doFPrime(1);
+						cubeToSolve.doU(1);
+						cubeToSolve.doF(1);
+						cubeToSolve.rotateCubeRight(2);
+					}
+					else if (cubeToSolve.back.getPos(1, 0) != cubeToSolve.back.getPos(1, 1) || cubeToSolve.leftSide.getPos(1, 0) != cubeToSolve.leftSide.getPos(1, 1)) {
+						cubeToSolve.rotateCubeRight(2);
+						cubeToSolve.doUPrime(1);
+						cubeToSolve.doLPrime(1);
+						cubeToSolve.doU(1);
+						cubeToSolve.doL(1);
+						cubeToSolve.doU(1);
+						cubeToSolve.doF(1);
+						cubeToSolve.doUPrime(1);
+						cubeToSolve.doFPrime(1);
+						cubeToSolve.rotateCubeRight(2);
+					}
 				}
 			}
 			cubeToSolve.doU(1);
