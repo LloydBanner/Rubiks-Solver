@@ -15,6 +15,8 @@
 #include "ImprovedBeginners.h"
 #include "ImprovedCornersFirst.h"
 #include "ImprovedRoux.h"
+#include "LowMovesBeginner.h"
+#include "LowMovesCorners.h"
 
 void printCube(RubiksCube cube) {
 	std::cout << "front" << "\n";
@@ -207,6 +209,76 @@ void testImprovedBeginnersMethod() {
 	std::cout << "Average time to solve was " << averageDuration << "ms" << "\n";
 }
 
+void testLowMovesBeginnerMethod() {
+	int numberValid = 0;
+	int totalMoves = 0;
+	float totalDuration = 0;
+	int numberToTest = 1000;
+
+	std::fstream fout;
+	fout.open("LowMovesBeginner.csv", std::ios::out);
+	fout << "Cube Number" << "," << "Solve Time (ms)" << "," << "Number of Moves" << "\n";
+
+	for (int i = 0; i < numberToTest; i++) {
+		RubiksCube cube;
+		Scrambler scrambler;
+
+		std::cout << "initial cube" << "\n";
+		printCube(cube);
+
+		std::cout << "\n";
+		scrambler.setCube(cube);
+		scrambler.scramble(20);
+		std::string sequence = scrambler.getSequence();
+		std::cout << sequence;
+		std::cout << "\n";
+		std::cout << "\n";
+
+		cube = scrambler.getCube();
+
+
+		std::cout << "Scrambled cube" << "\n";
+		printCube(cube);
+
+		LowMovesBeginner solver;
+		cube.resetMoves();
+		solver.setCube(cube);
+		std::chrono::high_resolution_clock::time_point start = std::chrono::high_resolution_clock::now();
+		solver.solveCross();
+		solver.solverTopCorners();
+		solver.solveMiddleLayer();
+		solver.solveFinalface();
+		solver.completeCorners();
+		solver.completeEdges();
+		std::chrono::high_resolution_clock::time_point end = std::chrono::high_resolution_clock::now();
+
+		if (solver.isSolutionValid()) {
+			numberValid += 1;
+		}
+		cube = solver.getCube();
+		//std::cout << "Solved in " << cube.getNumMoves() << " moves" << "\n";
+		//std::cout << cube.getMoves() << "\n";
+
+		std::chrono::duration<double, std::milli> duration = end - start;
+
+		std::cout << "Final cube: took " << duration.count() << "ms to solve" << "\n";
+		printCube(cube);
+
+		fout << i << "," << duration.count() << "," << cube.getNumMoves() << "\n";
+		totalMoves += cube.getNumMoves();
+		totalDuration += duration.count();
+
+		Sleep(1000); //Delay to allow for random cube seed change
+	}
+
+	fout.close();
+
+	float averageDuration = totalDuration / numberToTest;
+	std::cout << "Out of " << numberToTest << " there were " << numberValid << " valid cubes" << "\n";
+	std::cout << "Average number of moves was " << totalMoves / numberToTest << "\n";
+	std::cout << "Average time to solve was " << averageDuration << "ms" << "\n";
+}
+
 void testBeginnersCornersFirstMethod() {
 	int numberValid = 0;
 	int totalMoves = 0;
@@ -343,6 +415,79 @@ void testImprovedCornersFirstMethod() {
 		totalDuration += duration.count();
 
 		Sleep(1000); //Delay to allow for random cube seed change
+	}
+
+	fout.close();
+
+	float averageDuration = totalDuration / numberToTest;
+	std::cout << "Out of " << numberToTest << " there were " << numberValid << " valid cubes" << "\n";
+	std::cout << "Average number of moves was " << totalMoves / numberToTest << "\n";
+	std::cout << "Average time to solve was " << averageDuration << "ms" << "\n";
+}
+
+void testLowMovesCornersFirstMethod() {
+	int numberValid = 0;
+	int totalMoves = 0;
+	float totalDuration = 0;
+	int numberToTest = 1000;
+
+	std::fstream fout;
+	fout.open("LowMovesCorners.csv", std::ios::out);
+	fout << "Cube Number" << "," << "Solve Time (ms)" << "," << "Number of Moves" << "\n";
+
+	for (int i = 0; i < numberToTest; i++) {
+		RubiksCube cube;
+		Scrambler scrambler;
+
+		std::cout << "initial cube" << "\n";
+		printCube(cube);
+
+		std::cout << "\n";
+		scrambler.setCube(cube);
+		scrambler.scramble(20);
+		std::string sequence = scrambler.getSequence();
+		std::cout << sequence;
+		std::cout << "\n";
+		std::cout << "\n";
+
+		cube = scrambler.getCube();
+
+
+		std::cout << "Scrambled cube" << "\n";
+		printCube(cube);
+
+		LowMovesCorners solver;
+		cube.resetMoves();
+		solver.setCube(cube);
+		std::chrono::high_resolution_clock::time_point start = std::chrono::high_resolution_clock::now();
+		solver.setCube(cube);
+		solver.solveBottomCorners();
+		solver.solveTopCorners();
+		solver.solveThreeLedges();
+		solver.solveRedges();
+		solver.solveLastLedge();
+		solver.flipMidges();
+		solver.completeCube();
+		std::chrono::high_resolution_clock::time_point end = std::chrono::high_resolution_clock::now();
+
+		if (solver.isSolutionValid()) {
+			numberValid += 1;
+		}
+		cube = solver.getCube();
+		//std::cout << "Solved in " << cube.getNumMoves() << " moves" << "\n";
+		//std::cout << cube.getMoves() << "\n";
+
+		std::chrono::duration<double, std::milli> duration = end - start;
+
+		std::cout << "Final cube: took " << duration.count() << "ms to solve" << "\n";
+		printCube(cube);
+
+		fout << i << "," << duration.count() << "," << cube.getNumMoves() << "\n";
+
+		totalMoves += cube.getNumMoves();
+		totalDuration += duration.count();
+
+		Sleep(1); //Delay to allow for random cube seed change
 	}
 
 	fout.close();
@@ -502,12 +647,14 @@ int main() {
 
 	//testBeginnersMethod();
 	//testBeginnersCornersFirstMethod();
-	testRoux();
+	//testRoux();
 
 	//testImprovedBeginnersMethod();
 	//testImprovedCornersFirstMethod();
 	//testImprovedRoux();
 
+	//testLowMovesBeginnerMethod();
+	testLowMovesCornersFirstMethod();
 
     return 0;
 }

@@ -1,13 +1,13 @@
 #include "stdafx.h"
-#include "ImprovedBeginners.h"
+#include "LowMovesBeginner.h"
 
-//Only a few rotate cube right x3 swapped for rotate cube left
+//Improved Beginner with moves reduced
 
-ImprovedBeginners::ImprovedBeginners() {
+LowMovesBeginner::LowMovesBeginner() {
 	char colourTop = cubeToSolve.top.getPos(1, 1);
 }
 
-void ImprovedBeginners::solveCross() {
+void LowMovesBeginner::solveCross() {
 	char colourTop = cubeToSolve.top.getPos(1, 1);
 
 	//remove incorrect whites from top
@@ -318,7 +318,7 @@ void ImprovedBeginners::solveCross() {
 	}
 }
 
-void ImprovedBeginners::solverTopCorners() {
+void LowMovesBeginner::solverTopCorners() {
 	char colourTop = cubeToSolve.top.getPos(1, 1);
 
 	bool topCornersCorrect = false;
@@ -336,8 +336,8 @@ void ImprovedBeginners::solverTopCorners() {
 		char colourToCheck1;
 		char colourToCheck2;
 
-		//Count stops infinte loops in the while sections. I'm not 100% sure what's causing them at the moment
-		int count = 6;
+		//Should only need 3 repetitions of the algorithm to solve
+		int count = 3;
 		if (colourTop == colour1) {
 			colourToCheck1 = colour2;
 			colourToCheck2 = colour3;
@@ -507,7 +507,7 @@ void ImprovedBeginners::solverTopCorners() {
 
 }
 
-void ImprovedBeginners::solveMiddleLayer() {
+void LowMovesBeginner::solveMiddleLayer() {
 	cubeToSolve.rotateCubeUp(2);
 
 	int when4Stuck = 0;
@@ -631,7 +631,7 @@ void ImprovedBeginners::solveMiddleLayer() {
 	}
 }
 
-void ImprovedBeginners::solveFinalface() {
+void LowMovesBeginner::solveFinalface() {
 	char colourFace = cubeToSolve.top.getPos(1, 1);
 	int numEdges = 0;
 
@@ -830,7 +830,7 @@ void ImprovedBeginners::solveFinalface() {
 	}
 }
 
-void ImprovedBeginners::completeCorners() {
+void LowMovesBeginner::completeCorners() {
 	bool backCornersSolved = false;
 	for (int i = 0; i < 4; i++) {
 		if (cubeToSolve.front.getPos(0, 0) == cubeToSolve.front.getPos(0, 2)) {
@@ -896,7 +896,7 @@ void ImprovedBeginners::completeCorners() {
 	}
 }
 
-void ImprovedBeginners::completeEdges() {
+void LowMovesBeginner::completeEdges() {
 	bool edgesCompleted = false;
 	while (!edgesCompleted) {
 		if (cubeToSolve.front.getPos(0, 1) == cubeToSolve.front.getPos(1, 1)) {
@@ -988,7 +988,7 @@ void ImprovedBeginners::completeEdges() {
 	}
 }
 
-bool ImprovedBeginners::isSolutionValid() {
+bool LowMovesBeginner::isSolutionValid() {
 	bool valid = true;
 
 	char colourFront = cubeToSolve.front.getPos(1, 1);
@@ -1043,13 +1043,13 @@ bool ImprovedBeginners::isSolutionValid() {
 	return valid;
 }
 
-void ImprovedBeginners::setCube(RubiksCube cube) {
+void LowMovesBeginner::setCube(RubiksCube cube) {
 	cubeToSolve = cube;
 }
 
-RubiksCube ImprovedBeginners::getCube() {
+RubiksCube LowMovesBeginner::getCube() {
 	return cubeToSolve;
 }
 
-ImprovedBeginners::~ImprovedBeginners() {
+LowMovesBeginner::~LowMovesBeginner() {
 }

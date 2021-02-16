@@ -152,6 +152,8 @@
     <ClInclude Include="ImprovedBeginners.h" />
     <ClInclude Include="ImprovedCornersFirst.h" />
     <ClInclude Include="ImprovedRoux.h" />
+    <ClInclude Include="LowMovesBeginner.h" />
+    <ClInclude Include="LowMovesCorners.h" />
     <ClInclude Include="RouxMethodSolver.h" />
     <ClInclude Include="RubiksCube.h" />
     <ClInclude Include="Scrambler.h" />
@@ -165,6 +167,8 @@
     <ClCompile Include="ImprovedBeginners.cpp" />
     <ClCompile Include="ImprovedCornersFirst.cpp" />
     <ClCompile Include="ImprovedRoux.cpp" />
+    <ClCompile Include="LowMovesBeginner.cpp" />
+    <ClCompile Include="LowMovesCorners.cpp" />
     <ClCompile Include="RouxMethodSolver.cpp" />
     <ClCompile Include="RubiksCube.cpp" />
     <ClCompile Include="RubiksSolverActual.cpp" />
