@@ -764,6 +764,7 @@ void beginnerThread2(std::string sequence) {
 	cube = scrambler.getCube();
 
 	LowMovesBeginner solver;
+	cube.rotateCubeUp(1);
 	cube.resetMoves();
 	solver.setCube(cube);
 	std::chrono::high_resolution_clock::time_point start = std::chrono::high_resolution_clock::now();
@@ -789,6 +790,7 @@ void beginnerThread3(std::string sequence) {
 	cube = scrambler.getCube();
 
 	LowMovesBeginner solver;
+	cube.rotateCubeUp(2);
 	cube.resetMoves();
 	solver.setCube(cube);
 	std::chrono::high_resolution_clock::time_point start = std::chrono::high_resolution_clock::now();
@@ -814,6 +816,7 @@ void beginnerThread4(std::string sequence) {
 	cube = scrambler.getCube();
 
 	LowMovesBeginner solver;
+	cube.rotateCubeDown(1);
 	cube.resetMoves();
 	solver.setCube(cube);
 	std::chrono::high_resolution_clock::time_point start = std::chrono::high_resolution_clock::now();
@@ -839,6 +842,7 @@ void beginnerThread5(std::string sequence) {
 	cube = scrambler.getCube();
 
 	LowMovesBeginner solver;
+	cube.rotateCubeRight(1);
 	cube.resetMoves();
 	solver.setCube(cube);
 	std::chrono::high_resolution_clock::time_point start = std::chrono::high_resolution_clock::now();
@@ -864,6 +868,7 @@ void beginnerThread6(std::string sequence) {
 	cube = scrambler.getCube();
 
 	LowMovesBeginner solver;
+	cube.rotateCubeLeft(1);
 	cube.resetMoves();
 	solver.setCube(cube);
 	std::chrono::high_resolution_clock::time_point start = std::chrono::high_resolution_clock::now();
@@ -998,6 +1003,7 @@ void cornerThread2(std::string sequence) {
 	cube = scrambler.getCube();
 
 	LowMovesCorners solver;
+	cube.rotateCubeUp(1);
 	cube.resetMoves();
 	solver.setCube(cube);
 	std::chrono::high_resolution_clock::time_point start = std::chrono::high_resolution_clock::now();
@@ -1025,6 +1031,7 @@ void cornerThread3(std::string sequence) {
 	cube = scrambler.getCube();
 
 	LowMovesCorners solver;
+	cube.rotateCubeUp(2);
 	cube.resetMoves();
 	solver.setCube(cube);
 	std::chrono::high_resolution_clock::time_point start = std::chrono::high_resolution_clock::now();
@@ -1052,6 +1059,7 @@ void cornerThread4(std::string sequence) {
 	cube = scrambler.getCube();
 
 	LowMovesCorners solver;
+	cube.rotateCubeDown(1);
 	cube.resetMoves();
 	solver.setCube(cube);
 	std::chrono::high_resolution_clock::time_point start = std::chrono::high_resolution_clock::now();
@@ -1079,6 +1087,7 @@ void cornerThread5(std::string sequence) {
 	cube = scrambler.getCube();
 
 	LowMovesCorners solver;
+	cube.rotateCubeRight(1);
 	cube.resetMoves();
 	solver.setCube(cube);
 	std::chrono::high_resolution_clock::time_point start = std::chrono::high_resolution_clock::now();
@@ -1106,6 +1115,7 @@ void cornerThread6(std::string sequence) {
 	cube = scrambler.getCube();
 
 	LowMovesCorners solver;
+	cube.rotateCubeLeft(1);
 	cube.resetMoves();
 	solver.setCube(cube);
 	std::chrono::high_resolution_clock::time_point start = std::chrono::high_resolution_clock::now();
