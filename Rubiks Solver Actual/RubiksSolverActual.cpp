@@ -1448,6 +1448,444 @@ void multithreadRoux() {
 	std::cout << "Average time to solve was " << averageDuration << "ms" << "\n";
 }
 
+void testStepsLowBeginnersMethod() {
+	int numberToTest = 1000;
+	float totalDurationCross = 0;
+	float totalDurationTopCorners = 0;
+	float totalDurationMiddleLayer = 0;
+	float totalDurationFinalface = 0;
+	float totalDurationCompleteCorners = 0;
+	float totalDurationCompleteEdges = 0;
+
+	int totalMovesCross = 0;
+	int totalMovesTopCorners = 0;
+	int totalMovesMiddleLayer = 0;
+	int totalMovesFinalface = 0;
+	int totalMovesCompleteCorners = 0;
+	int totalMovesCompleteEdges = 0;
+
+	for (int i = 0; i < numberToTest; i++) {
+		RubiksCube cube;
+		Scrambler scrambler;
+
+		std::cout << "initial cube" << "\n";
+		printCube(cube);
+
+		std::cout << "\n";
+		scrambler.setCube(cube);
+		scrambler.scramble(20);
+		std::string sequence = scrambler.getSequence();
+		std::cout << sequence;
+		std::cout << "\n";
+		std::cout << "\n";
+
+		cube = scrambler.getCube();
+
+
+		std::cout << "Scrambled cube" << "\n";
+		printCube(cube);
+
+		LowMovesBeginner solver;
+		cube.resetMoves();
+		solver.setCube(cube);
+		std::chrono::high_resolution_clock::time_point start = std::chrono::high_resolution_clock::now();
+		solver.solveCross();
+		std::chrono::high_resolution_clock::time_point end = std::chrono::high_resolution_clock::now();
+		cube = solver.getCube();
+		std::chrono::duration<double, std::milli> durationCross = end - start;
+		int movesCross = cube.getNumMoves();
+		cube.resetMoves();
+		solver.setCube(cube);
+		start = std::chrono::high_resolution_clock::now();
+		solver.solverTopCorners();
+		end = std::chrono::high_resolution_clock::now();
+		cube = solver.getCube();
+		std::chrono::duration<double, std::milli> durationTopCorners = end - start;
+		int movesTopCorners = cube.getNumMoves();
+		cube.resetMoves();
+		solver.setCube(cube);
+		start = std::chrono::high_resolution_clock::now();
+		solver.solveMiddleLayer();
+		end = std::chrono::high_resolution_clock::now();
+		cube = solver.getCube();
+		std::chrono::duration<double, std::milli> durationMiddleLayer = end - start;
+		int movesMiddleLayer = cube.getNumMoves();
+		cube.resetMoves();
+		solver.setCube(cube);
+		start = std::chrono::high_resolution_clock::now();
+		solver.solveFinalface();
+		end = std::chrono::high_resolution_clock::now();
+		cube = solver.getCube();
+		std::chrono::duration<double, std::milli> durationFinalface = end - start;
+		int movesFinalface = cube.getNumMoves();
+		cube.resetMoves();
+		solver.setCube(cube);
+		start = std::chrono::high_resolution_clock::now();
+		solver.completeCorners();
+		end = std::chrono::high_resolution_clock::now();
+		cube = solver.getCube();
+		std::chrono::duration<double, std::milli> durationCompleteCorners = end - start;
+		int movesCompleteCorners = cube.getNumMoves();
+		cube.resetMoves();
+		solver.setCube(cube);
+		start = std::chrono::high_resolution_clock::now();
+		solver.completeEdges();
+		end = std::chrono::high_resolution_clock::now();
+		cube = solver.getCube();
+		std::chrono::duration<double, std::milli> durationCompleteEdges = end - start;
+		int movesCompleteEdges = cube.getNumMoves();
+		cube.resetMoves();
+		solver.setCube(cube);
+
+		cube = solver.getCube();
+
+		std::cout << "Final cube: \n";
+		printCube(cube);
+
+		totalDurationCross += durationCross.count();
+		totalDurationTopCorners += durationTopCorners.count();
+		totalDurationMiddleLayer += durationMiddleLayer.count();
+		totalDurationFinalface += durationFinalface.count();
+		totalDurationCompleteCorners += durationCompleteCorners.count();
+		totalDurationCompleteEdges += durationCompleteEdges.count();
+
+		totalMovesCross += movesCross;
+		totalMovesTopCorners += movesTopCorners;
+		totalMovesMiddleLayer += movesMiddleLayer;
+		totalMovesFinalface += movesFinalface;
+		totalMovesCompleteCorners += movesCompleteCorners;
+		totalMovesCompleteEdges += movesCompleteEdges;
+
+		Sleep(1000); //Delay to allow for random cube seed change
+	}
+
+	float averageDurationCross = totalDurationCross / numberToTest;
+	float averageDurationTopCorners = totalDurationTopCorners / numberToTest;
+	float averageDurationMiddleLayer = totalDurationMiddleLayer / numberToTest;
+	float averageDurationFinalface = totalDurationFinalface / numberToTest;
+	float averageDurationCompleteCorners = totalDurationCompleteCorners / numberToTest;
+	float averageDurationCompleteEdges = totalDurationCompleteEdges / numberToTest;
+
+	float averageMovesCross = totalMovesCross / numberToTest;
+	float averageMovesTopCorners = totalMovesTopCorners / numberToTest;
+	float averageMovesMiddleLayer = totalMovesMiddleLayer / numberToTest;
+	float averageMovesFinalface = totalMovesFinalface / numberToTest;
+	float averageMovesCompleteCorners = totalMovesCompleteCorners / numberToTest;
+	float averageMovesCompleteEdges = totalMovesCompleteEdges / numberToTest;
+
+	std::cout << "Out of " << numberToTest << " there were " << numberToTest << " cubes solved" << "\n";
+	std::cout << "Average number of moves for the bottom corners step was " << averageMovesCross << "\n";
+	std::cout << "Average time to solve for the bottom corners step was " << averageDurationCross << "ms" << "\n";
+	std::cout << "Average number of moves for the top corners step was " << averageMovesTopCorners << "\n";
+	std::cout << "Average time to solve for the top corners step was " << averageDurationTopCorners << "ms" << "\n";
+	std::cout << "Average number of moves for the three ledges step was " << averageMovesMiddleLayer << "\n";
+	std::cout << "Average time to solve for the three ledges step was " << averageDurationMiddleLayer << "ms" << "\n";
+	std::cout << "Average number of moves for the redges step was " << averageMovesFinalface << "\n";
+	std::cout << "Average time to solve for the redges step was " << averageDurationFinalface << "ms" << "\n";
+	std::cout << "Average number of moves for the last ledge step was " << averageMovesCompleteCorners << "\n";
+	std::cout << "Average time to solve for the last ledge step was " << averageDurationCompleteCorners << "ms" << "\n";
+	std::cout << "Average number of moves for the midges step was " << averageMovesCompleteEdges << "\n";
+	std::cout << "Average time to solve for the midges step was " << averageDurationCompleteEdges << "ms" << "\n";
+}
+
+void testStepsLowCornersFirstMethod() {
+	int numberToTest = 1000;
+	float totalDurationBottomCorners = 0;
+	float totalDurationTopCorners = 0;
+	float totalDurationThreeLedges = 0;
+	float totalDurationRedges = 0;
+	float totalDurationLastLedge = 0;
+	float totalDurationMidges = 0;
+	float totalDurationEnd = 0;
+
+	int totalMovesBottomCorners = 0;
+	int totalMovesTopCorners = 0;
+	int totalMovesThreeLedges = 0;
+	int totalMovesRedges = 0;
+	int totalMovesLastLedge = 0;
+	int totalMovesMidges = 0;
+	int totalMovesEnd = 0;
+
+	for (int i = 0; i < numberToTest; i++) {
+		RubiksCube cube;
+		Scrambler scrambler;
+
+		std::cout << "initial cube" << "\n";
+		printCube(cube);
+
+		std::cout << "\n";
+		scrambler.setCube(cube);
+		scrambler.scramble(20);
+		std::string sequence = scrambler.getSequence();
+		std::cout << sequence;
+		std::cout << "\n";
+		std::cout << "\n";
+
+		cube = scrambler.getCube();
+
+
+		std::cout << "Scrambled cube" << "\n";
+		printCube(cube);
+
+		LowMovesCorners solver;
+		cube.resetMoves();
+		solver.setCube(cube);
+		std::chrono::high_resolution_clock::time_point start = std::chrono::high_resolution_clock::now();
+		solver.solveBottomCorners();
+		std::chrono::high_resolution_clock::time_point end = std::chrono::high_resolution_clock::now();
+		cube = solver.getCube();
+		std::chrono::duration<double, std::milli> durationBottomCorners = end - start;
+		int movesBottomCorners = cube.getNumMoves();
+		cube.resetMoves();
+		solver.setCube(cube);
+		start = std::chrono::high_resolution_clock::now();
+		solver.solveTopCorners();
+		end = std::chrono::high_resolution_clock::now();
+		cube = solver.getCube();
+		std::chrono::duration<double, std::milli> durationTopCorners = end - start;
+		int movesTopCorners = cube.getNumMoves();
+		cube.resetMoves();
+		solver.setCube(cube);
+		start = std::chrono::high_resolution_clock::now();
+		solver.solveThreeLedges();
+		end = std::chrono::high_resolution_clock::now();
+		cube = solver.getCube();
+		std::chrono::duration<double, std::milli> durationThreeLedges = end - start;
+		int movesThreeLedges = cube.getNumMoves();
+		cube.resetMoves();
+		solver.setCube(cube);
+		start = std::chrono::high_resolution_clock::now();
+		solver.solveRedges();
+		end = std::chrono::high_resolution_clock::now();
+		cube = solver.getCube();
+		std::chrono::duration<double, std::milli> durationRedges = end - start;
+		int movesRedges = cube.getNumMoves();
+		cube.resetMoves();
+		solver.setCube(cube);
+		start = std::chrono::high_resolution_clock::now();
+		solver.solveLastLedge();
+		end = std::chrono::high_resolution_clock::now();
+		cube = solver.getCube();
+		std::chrono::duration<double, std::milli> durationLastLedge = end - start;
+		int movesLastLedge = cube.getNumMoves();
+		cube.resetMoves();
+		solver.setCube(cube);
+		start = std::chrono::high_resolution_clock::now();
+		solver.flipMidges();
+		end = std::chrono::high_resolution_clock::now();
+		cube = solver.getCube();
+		std::chrono::duration<double, std::milli> durationMidges = end - start;
+		int movesMidges = cube.getNumMoves();
+		cube.resetMoves();
+		solver.setCube(cube);
+		start = std::chrono::high_resolution_clock::now();
+		solver.completeCube();
+		end = std::chrono::high_resolution_clock::now();
+		cube = solver.getCube();
+		std::chrono::duration<double, std::milli> durationEnd = end - start;
+		int movesEnd = cube.getNumMoves();
+		cube.resetMoves();
+		solver.setCube(cube);
+
+		cube = solver.getCube();
+
+		std::cout << "Final cube: \n";
+		printCube(cube);
+
+		totalDurationBottomCorners += durationBottomCorners.count();
+		totalDurationTopCorners += durationTopCorners.count();
+		totalDurationThreeLedges += durationThreeLedges.count();
+		totalDurationRedges += durationRedges.count();
+		totalDurationLastLedge += durationLastLedge.count();
+		totalDurationMidges += durationMidges.count();
+		totalDurationEnd += durationEnd.count();
+
+		totalMovesBottomCorners += movesBottomCorners;
+		totalMovesTopCorners += movesTopCorners;
+		totalMovesThreeLedges += movesThreeLedges;
+		totalMovesRedges += movesRedges;
+		totalMovesLastLedge += movesLastLedge;
+		totalMovesMidges += movesMidges;
+		totalMovesEnd += movesEnd;
+
+		Sleep(1000); //Delay to allow for random cube seed change
+	}
+
+	float averageDurationBottomCorners = totalDurationBottomCorners / numberToTest;
+	float averageDurationTopCorners = totalDurationTopCorners / numberToTest;
+	float averageDurationThreeLedges = totalDurationThreeLedges / numberToTest;
+	float averageDurationRedges = totalDurationRedges / numberToTest;
+	float averageDurationLastLedge = totalDurationLastLedge / numberToTest;
+	float averageDurationMidges = totalDurationMidges / numberToTest;
+	float averageDurationEnd = totalDurationEnd / numberToTest;
+
+	float averageMovesBottomCorners = totalMovesBottomCorners / numberToTest;
+	float averageMovesTopCorners = totalMovesTopCorners / numberToTest;
+	float averageMovesThreeLedges = totalMovesThreeLedges / numberToTest;
+	float averageMovesRedges = totalMovesRedges / numberToTest;
+	float averageMovesLastLedge = totalMovesLastLedge / numberToTest;
+	float averageMovesMidges = totalMovesMidges / numberToTest;
+	float averageMovesEnd = totalMovesEnd / numberToTest;
+
+	std::cout << "Out of " << numberToTest << " there were " << numberToTest << " cubes solved" << "\n";
+	std::cout << "Average number of moves for the bottom corners step was " << averageMovesBottomCorners << "\n";
+	std::cout << "Average time to solve for the bottom corners step was " << averageDurationBottomCorners << "ms" << "\n";
+	std::cout << "Average number of moves for the top corners step was " << averageMovesTopCorners << "\n";
+	std::cout << "Average time to solve for the top corners step was " << averageDurationTopCorners << "ms" << "\n";
+	std::cout << "Average number of moves for the three ledges step was " << averageMovesThreeLedges << "\n";
+	std::cout << "Average time to solve for the three ledges step was " << averageDurationThreeLedges << "ms" << "\n";
+	std::cout << "Average number of moves for the redges step was " << averageMovesRedges << "\n";
+	std::cout << "Average time to solve for the redges step was " << averageDurationRedges << "ms" << "\n";
+	std::cout << "Average number of moves for the last ledge step was " << averageMovesLastLedge << "\n";
+	std::cout << "Average time to solve for the last ledge step was " << averageDurationLastLedge << "ms" << "\n";
+	std::cout << "Average number of moves for the midges step was " << averageMovesMidges << "\n";
+	std::cout << "Average time to solve for the midges step was " << averageDurationMidges << "ms" << "\n";
+	std::cout << "Average number of moves for the end step was " << averageMovesEnd << "\n";
+	std::cout << "Average time to solve for the end step was " << averageDurationEnd << "ms" << "\n";
+}
+
+void testStepsLowMovesRoux() {
+	int numberToTest = 1000;
+	float totalDurationBottomLeft = 0;
+	float totalDurationBottomRight = 0;
+	float totalDurationTopCorners = 0;
+	float totalDurationRedgeandLedge = 0;
+	float totalDurationMidges = 0;
+	float totalDurationEnd = 0;
+
+	int totalMovesBottomLeft = 0;
+	int totalMovesBottomRight = 0;
+	int totalMovesTopCorners = 0;
+	int totalMovesRedgeandLedge = 0;
+	int totalMovesMidges = 0;
+	int totalMovesEnd = 0;
+
+	for (int i = 0; i < numberToTest; i++) {
+		RubiksCube cube;
+		Scrambler scrambler;
+
+		std::cout << "initial cube" << "\n";
+		printCube(cube);
+
+		std::cout << "\n";
+		scrambler.setCube(cube);
+		scrambler.scramble(20);
+		std::string sequence = scrambler.getSequence();
+		std::cout << sequence;
+		std::cout << "\n";
+		std::cout << "\n";
+
+		cube = scrambler.getCube();
+
+
+		std::cout << "Scrambled cube" << "\n";
+		printCube(cube);
+
+
+
+		LowMovesRoux solver;
+		cube.resetMoves();
+		solver.setCube(cube);
+		std::chrono::high_resolution_clock::time_point start = std::chrono::high_resolution_clock::now();
+		solver.solveBottomLeft();
+		std::chrono::high_resolution_clock::time_point end = std::chrono::high_resolution_clock::now();
+		cube = solver.getCube();
+		std::chrono::duration<double, std::milli> durationBottomLeft = end - start;
+		int movesBottomLeft = cube.getNumMoves();
+		cube.resetMoves();
+		solver.setCube(cube);
+		start = std::chrono::high_resolution_clock::now();
+		solver.solveBottomRight();
+		end = std::chrono::high_resolution_clock::now();
+		cube = solver.getCube();
+		std::chrono::duration<double, std::milli> durationBottomRight = end - start;
+		int movesBottomRight = cube.getNumMoves();
+		cube.resetMoves();
+		solver.setCube(cube);
+		start = std::chrono::high_resolution_clock::now();
+		solver.solveTopCorners();
+		end = std::chrono::high_resolution_clock::now();
+		cube = solver.getCube();
+		std::chrono::duration<double, std::milli> durationTopCorners = end - start;
+		int movesTopCorners = cube.getNumMoves();
+		cube.resetMoves();
+		solver.setCube(cube);
+		start = std::chrono::high_resolution_clock::now();
+		solver.solveLastRedgeandLedge();
+		end = std::chrono::high_resolution_clock::now();
+		cube = solver.getCube();
+		std::chrono::duration<double, std::milli> durationRedgeandLedge = end - start;
+		int movesRedgeandLedge = cube.getNumMoves();
+		cube.resetMoves();
+		solver.setCube(cube);
+		start = std::chrono::high_resolution_clock::now();
+		solver.flipMidges();
+		end = std::chrono::high_resolution_clock::now();
+		cube = solver.getCube();
+		std::chrono::duration<double, std::milli> durationMidges = end - start;
+		int movesMidges = cube.getNumMoves();
+		cube.resetMoves();
+		solver.setCube(cube);
+		start = std::chrono::high_resolution_clock::now();
+		solver.completeCube();
+		end = std::chrono::high_resolution_clock::now();
+		cube = solver.getCube();
+		std::chrono::duration<double, std::milli> durationEnd = end - start;
+		int movesEnd = cube.getNumMoves();
+		cube.resetMoves();
+		solver.setCube(cube);
+
+		cube = solver.getCube();
+
+		std::cout << "Final cube: \n";
+		printCube(cube);
+
+		totalDurationBottomLeft += durationBottomLeft.count();
+		totalDurationBottomRight += durationBottomRight.count();
+		totalDurationTopCorners += durationTopCorners.count();
+		totalDurationRedgeandLedge += durationRedgeandLedge.count();
+		totalDurationMidges += durationMidges.count();
+		totalDurationEnd += durationEnd.count();
+
+		totalMovesBottomLeft += movesBottomLeft;
+		totalMovesBottomRight += movesBottomRight;
+		totalMovesTopCorners += movesTopCorners;
+		totalMovesRedgeandLedge += movesRedgeandLedge;
+		totalMovesMidges += movesMidges;
+		totalMovesEnd += movesEnd;
+
+		Sleep(1000); //Delay to allow for random cube seed change
+	}
+
+	float averageDurationBottomLeft = totalDurationBottomLeft / numberToTest;
+	float averageDurationBottomRight = totalDurationBottomRight / numberToTest;
+	float averageDurationTopCorners = totalDurationTopCorners / numberToTest;
+	float averageDurationRedgeandLedge = totalDurationRedgeandLedge / numberToTest;
+	float averageDurationMidges = totalDurationMidges / numberToTest;
+	float averageDurationEnd = totalDurationEnd / numberToTest;
+
+	float averageMovesBottomLeft = totalMovesBottomLeft / numberToTest;
+	float averageMovesBottomRight = totalMovesBottomRight / numberToTest;
+	float averageMovesTopCorners = totalMovesTopCorners / numberToTest;
+	float averageMovesRedgeandLedge = totalMovesRedgeandLedge / numberToTest;
+	float averageMovesMidges = totalMovesMidges / numberToTest;
+	float averageMovesEnd = totalMovesEnd / numberToTest;
+
+	std::cout << "Out of " << numberToTest << " there were " << numberToTest << " cubes solved" << "\n";
+	std::cout << "Average number of moves for the bottom left step was " << averageMovesBottomLeft << "\n";
+	std::cout << "Average time to solve for the bottom left step was " << averageDurationBottomLeft << "ms" << "\n";
+	std::cout << "Average number of moves for the bottom right step was " << averageMovesBottomRight << "\n";
+	std::cout << "Average time to solve for the bottom right step was " << averageDurationBottomRight << "ms" << "\n";
+	std::cout << "Average number of moves for the top corners step was " << averageMovesTopCorners << "\n";
+	std::cout << "Average time to solve for the top corners step was " << averageDurationTopCorners << "ms" << "\n";
+	std::cout << "Average number of moves for the redge and ledge step was " << averageMovesRedgeandLedge << "\n";
+	std::cout << "Average time to solve for the redge and ledge step was " << averageDurationRedgeandLedge << "ms" << "\n";
+	std::cout << "Average number of moves for the midges step was " << averageMovesMidges << "\n";
+	std::cout << "Average time to solve for the midges step was " << averageDurationMidges << "ms" << "\n";
+	std::cout << "Average number of moves for the end step was " << averageMovesEnd << "\n";
+	std::cout << "Average time to solve for the end step was " << averageDurationEnd << "ms" << "\n";
+}
+
 int main() {
 	std::cout << "Hello World! \n";
 
@@ -1464,8 +1902,12 @@ int main() {
 	//testLowMovesRoux();
 
 	//multithreadBeginner();
-	multithreadCorners();
+	//multithreadCorners();
 	//multithreadRoux();
+
+	testStepsLowBeginnersMethod();
+	//testStepsLowCornersFirstMethod();
+	//testStepsLowMovesRoux();
 
     return 0;
 }
